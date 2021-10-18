@@ -1,1 +1,0 @@
-Type: Car, Regnr: ABC123, CZK: 40

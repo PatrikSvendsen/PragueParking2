@@ -44,6 +44,10 @@ namespace PragueParking2._0
         {
             
         }
+        public Vehicle(string plateNumber)
+        {
+            this.plateNumber = plateNumber;
+        }
         public Vehicle(VehicleValue value)
         {
             this.value = value;
@@ -51,6 +55,11 @@ namespace PragueParking2._0
         public Vehicle(VehiclePricePerHour price)
         {
             this.price = price;
+        }
+        public Vehicle(string type, string plateNumber)
+        {
+            this.plateNumber = plateNumber;
+            this.type = type;
         }
         public Vehicle(string plateNumber, VehiclePricePerHour price)
         {
@@ -81,7 +90,7 @@ namespace PragueParking2._0
         }
         public VehiclePricePerHour Price
         {
-            get { return price; }
+            get { return this.price; }
         }
         public VehicleValue Value
         {
@@ -94,15 +103,25 @@ namespace PragueParking2._0
             //    "Plate number: " + plateNumber + ", " +
             //    "Parking value: " + (int)value + ", " +
             //    "Price per hour: " + (int)price;
-            return type + ", " + plateNumber +  ", " + price;
+            return type + ", " + plateNumber + ", " + (int)price;
         }
 
         //************************************
         // Methods
         //************************************
-
-       
-
+        // Försök till att hämta ut rätt värden för olika typer.
+        public static void GetCorrectInfo(string type, out Vehicle typePrice)
+        {
+            typePrice = new Vehicle();
+            if (type == "Car")
+            {
+                typePrice = new Vehicle(VehiclePricePerHour.Car);
+            }
+            else if (type == "MC")
+            {
+                typePrice = new Vehicle(VehiclePricePerHour.MC);
+            }
+        }
     }
 
     //class Car : Vehicle

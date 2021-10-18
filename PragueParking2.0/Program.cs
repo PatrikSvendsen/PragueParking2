@@ -44,11 +44,8 @@ class Program
 {
     public static string filePath = "../../../parkinglist.txt";                 // bör flyttas ut i parking house class
     public static string parkedVehicle = "../../../parkedVehicle.txt";          // Här ska man printa ut alla fordon med type etc
-    public static string searchPlatenumber = "../../../searchPlatenumber.txt";  // Här bör endast regnr skickas in för kontroll vid dubletter
     public static List<Vehicle> vehicles = new List<Vehicle>(100);
     public static List<string> currentParkedVehicles = new List<string>(100);
-
-
 
     public static void Main(string[] args)
     {
@@ -59,14 +56,18 @@ class Program
                                                                     //List<Vehicle> test = new List<Vehicle>(100);              // skapar ny lista
                                                                     // skapar ny lista
 
-        InitializeParkingList<Vehicle>(); // läser in sparad fil med parkerade bilar
+        InitializeParkingList<Vehicle>();   // läser in sparad fil med parkerade bilar
+        InitiateSearchRegList<string>();    // Efter man läst in alla sparade fordon från lista och konventerat dem till obejkt 
+                                            // Så töms currentParkedVehicle listan för att endast innehålla regnr, koommer användas för searchReg.
+
         //var arrangedList = ArrangeListWithFormat<string>(parkingList);             // Lägger till lite information för en seperatlista.
 
         var menuChoice = "";
         var subMenuChoice = "";
         var typeValue = new Vehicle();
+        bool mainmenu = true;
 
-        while (true)
+        while (mainmenu == true)
         {
             //var arrangedList = ArrangeListWithFormat<string>(parkingList);
             Console.Clear();
@@ -102,7 +103,11 @@ class Program
                         case "Car":break;
                         case "MC": break;
 
-                        default: break;
+                        default:
+                            if (subMenuChoice == "Go back")
+                            {
+                                subMenuChoice = null;
+                            }; break;
                     }
                     break;
                 case "Collect vehicle": break;
@@ -110,7 +115,10 @@ class Program
                 case "Show parkingview": break;
                 case "Configure prices": break;
                 case "Configure options": break;
-                case "Exit Program": Console.WriteLine("Closing program..."); break;
+                case "Exit Program": mainmenu = false; 
+                    Console.WriteLine("Closing program...");
+                    Console.ReadLine();
+                    break;
                 default:
                     Console.WriteLine("Please choose a correct option.");
                     break;
@@ -140,7 +148,6 @@ class Program
 
     // För att spara ned listan tilll textfil
 
-
     // För att initiera text-filer
     static List<Vehicle> InitializeParkingList<T>()          // out List<string> inputList
     {
@@ -148,11 +155,23 @@ class Program
         foreach (string vehicle in currentParkedVehicles)
         {
             string[] items = vehicle.Split(',');
-            //Vehicle v = new Vehicle(items[0], items[1], carValue.Value, carPrice.Price);
-            Vehicle v = new Vehicle();
+            Vehicle v = new Vehicle(items[0], items[1], (VehiclePricePerHour)int.Parse(items[2]));
+            //Vehicle v = new Vehicle();
             vehicles.Add(v);
         }
         return vehicles;
+    }
+    static public List<string> InitiateSearchRegList<T>()
+    {
+        currentParkedVehicles.Clear();
+        var myList = vehicles.ConvertAll(x => x.ToString());
+        foreach (string vehicle in myList)
+        {
+            string[] items = vehicle.Split(',');
+            var v = items[1];
+            currentParkedVehicles.Add(v);
+        }
+        return currentParkedVehicles;
     }
 
     public static List<Vehicle> ArrangeListWithFormat<T>()
@@ -176,16 +195,14 @@ class Program
     // För att lägga till bilar i parkeringslistan
     public static bool AddVehicleToList(string vehiclePlate, string type)
     {
-        //var typeValue = new Vehicle();
-        //var typePrice = new Vehicle();
         // här ska regex check ligga
         
         if (true)
         {
-            GetCorrectInfo(type, out Vehicle typePrice);
+            Vehicle.GetCorrectInfo(type, out Vehicle typePrice);            // hämtar korrekt info om priset per timme för vilken typ av fordon
             Vehicle newVehicle = new Vehicle(type, vehiclePlate, typePrice.Price);
-            vehicles.Add(newVehicle);
-            SaveVehicleToFile(newVehicle);
+            vehicles.Add(newVehicle);           // lägger till fordonet i Vehicle-listan
+            SaveVehicleToFile(newVehicle, vehiclePlate);      // lägger till det nya fordonet i textfilen.
             return true;
         }
         else if (false)
@@ -195,18 +212,18 @@ class Program
     }
 
     // För att spara senaste fordon till fil
-    private static bool SaveVehicleToFile(Vehicle newVehicle)
+    private static bool SaveVehicleToFile(Vehicle newVehicle, string vehiclePlate)
     {
         string[] lines = { newVehicle.ToString() };
         File.AppendAllLines(Path.Combine(filePath), lines);
+        //lines[0] = vehiclePlate;
+        //File.AppendAllLines(Path.Combine(searchPlatenumber), lines);              // path finns ej kvar. 
         return true;
     }
 
     // Visa parkerade bilar
     public static void Showparkingview()
     {
-        //var carType = new Vehicle(VehicleValue.Car);
-        //var mcType = new Vehicle(VehicleValue.MC);
         //var carPrice = new Vehicle(VehiclePricePerHour.Car);
         //var mcPrice = new Vehicle(VehiclePricePerHour.MC);
 
@@ -216,20 +233,7 @@ class Program
             Console.WriteLine(vehicle.ToString());
         }
     }
-    // Försök till att hämta ut rätt värden för olika typer.
-    public static void GetCorrectInfo(string type, out Vehicle typePrice)
-    {
-        typePrice = new Vehicle();
-        if (type == "Car")
-        {
-            typePrice = new Vehicle(VehiclePricePerHour.Car);
-        }
-        else if (type == "MC")
-        {
-            typePrice = new Vehicle(VehiclePricePerHour.MC);
-        }
 
-    }
     // Ska fungera som en bakåt-metod
     public static void ReturnToMenu()
     {
