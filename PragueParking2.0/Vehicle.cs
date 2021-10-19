@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace PragueParking2._0
 {
 
     //************************************
-    // Enumerator
+    // Enumeratorm
     //************************************
     public enum VehicleValue
     {
@@ -29,24 +30,27 @@ namespace PragueParking2._0
     }
     public class Vehicle
     {
+        public static string pricePath = "../../../VehiclePricePerHour.txt";
         //************************************
         // Fields
         //************************************
         public string plateNumber;
         public string type;
-        private readonly VehiclePricePerHour price;
-        private readonly VehicleValue value;
+        public VehiclePricePerHour price;
+        public VehicleValue value;
+        //public int Price;
 
         //************************************
         // Constructors
         //************************************
         public Vehicle()
         {
-            
+            //OldPrice = 20;
         }
-        public Vehicle(string plateNumber)
+        public Vehicle(int newPrice, int currentPrice)
         {
-            this.plateNumber = plateNumber;
+            NewPrice = newPrice;
+            CurrentPrice = currentPrice;
         }
         public Vehicle(VehicleValue value)
         {
@@ -68,30 +72,39 @@ namespace PragueParking2._0
         }
         public Vehicle(string type, string plateNumber, VehiclePricePerHour price)
         {
-            this.type = type;
-            this.plateNumber = plateNumber;
-            this.price = price;
+            Type = type;
+            PlateNumber = plateNumber;
+            Price = price;
         }
-
         //************************************
         // Properties
         //************************************
 
         public string PlateNumber
         {
-            get { return this.plateNumber; }
-            set { this.plateNumber = value; }
+            get { return plateNumber; }
+            set { plateNumber = value; }
         }
-
+        //public string PlateNumber
+        //{
+        //    get { return this.plateNumber; }
+        //    set { this.plateNumber = value; }
+        //}
         public string Type
         {
-            get { return this.type; }
-            set { this.type = value; }
+            get { return type; }
+            set { type = value; }
         }
-        public VehiclePricePerHour Price
-        {
-            get { return this.price; }
-        }
+        public static VehiclePricePerHour Price { get; set; }
+
+        //public VehiclePricePerHour Price
+        //{
+        //    get { return this.price; }
+        //    set {  this.price = value; }
+        //}
+        public static int NewPrice { get; internal set; }
+        public static int CurrentPrice { get; internal set; }
+        
         public VehicleValue Value
         {
             get { return value; }
@@ -105,11 +118,16 @@ namespace PragueParking2._0
             //    "Price per hour: " + (int)price;
             return type + ", " + plateNumber + ", " + (int)price;
         }
+        public static void VehicleParked(string type)
+        {
+            Console.WriteLine("{0} has now been parked at <input spot here>", type);
+        }
 
         //************************************
         // Methods
         //************************************
         // Försök till att hämta ut rätt värden för olika typer.
+        // Se om det går att använda <T> och gör den generisk
         public static void GetCorrectInfo(string type, out Vehicle typePrice)
         {
             typePrice = new Vehicle();
@@ -124,22 +142,27 @@ namespace PragueParking2._0
         }
     }
 
-    //class Car : Vehicle
-    //{
-    //    char TypeCar;                   // Unikt för varje ärvd class, att gå en char som skall stå i början på varje regnr. C = Car C#ABC123
+    class Car : Vehicle
+    {
+        //public Car(string type, string platenumber, VehiclePricePerHour price, int value) : base(type, platenumber, price)
+        public Car()
+        {
 
-    //    public Car(VehicleType t, string p, char TypeCar) : base(t, p)
-    //    {
-    //        TypeCar = 'C';
-    //    }
-    //}
+        }
+        public static void VehicleParked()
+        {
+            Console.WriteLine("Car has now been parked at <input spot here>");
+        }
+    }
     class MC : Vehicle
     {
-        string VehicleType;
-
-        public MC(string VehicleType, string platenumber, VehiclePricePerHour price) : base(platenumber, price)
+        public MC(string type, string platenumber, VehiclePricePerHour price) : base(type, platenumber, price)
         {
-            VehicleType = "MC";
+
+        }
+        public void CarParked()
+        {
+            Console.WriteLine("Motorcycle has now been parked at <input spot here>");
         }
     }
 }
