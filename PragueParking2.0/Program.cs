@@ -42,13 +42,12 @@ uppleva att bilden är stabil, tydlig och lätt att förstå
 
 namespace PragueParking2._0
 {
+
     public class Program
     {
         public static string filePath = "../../../parkinglist.txt";                 // bör flyttas ut i parking house class
-        public static string parkedVehicle = "../../../parkedVehicle.txt";          // Här ska man printa ut alla fordon med type etc
-        public static string pricePath = "../../../VehiclePricePerHour.txt";
-        public static List<Vehicle> vehicles = new List<Vehicle>(100);
-        public static List<string> currentParkedVehicles = new List<string>(100);
+        public static string pricePath = "../../../Vehiclevalues.txt";
+        public delegate void SimpleDelegate(string plateNumber);
 
         public static void Main(string[] args)
         {
@@ -60,8 +59,16 @@ namespace PragueParking2._0
                                                                         // skapar ny lista
 
             InitializeParkingList<Vehicle>();   // Läser in sparad fil med parkerade bilar
-            InitiateSearchRegList<string>();    // Efter man läst in alla sparade fordon från lista och konventerat dem till obejkt 
-            InitiatePriceList(out Vehicle CurrentPrice);                                   // Så töms currentParkedVehicle listan för att endast innehålla regnr, kommer användas för searchReg.
+            //InitiatePriceList(out Vehicle CurrentPrice);                                   // Så töms currentParkedVehicle listan för att endast innehålla regnr, kommer användas för searchReg.
+            Parkinghouse.InitiateParkingValues();
+            foreach (Parkinghouse item in Parkinghouse.parkingHouseValues)
+            {
+                Console.WriteLine(item);
+            }
+            foreach (Vehicle item in Parkinghouse.vehicles)
+            {
+                Console.WriteLine(item);
+            }
 
             //var arrangedList = ArrangeListWithFormat<string>(parkingList);             // Lägger till lite information för en seperatlista.
 
@@ -72,6 +79,8 @@ namespace PragueParking2._0
 
             while (mainmenu == true)
             {
+                menuChoice = null;
+                subMenuChoice = null;
                 Console.Clear();
                 var table1 = new Table()
                 .AddColumn(new TableColumn("Welcome to this program for parking vehicles").Centered())
@@ -80,8 +89,9 @@ namespace PragueParking2._0
                 .AddColumn("Please chose an option");
                 AnsiConsole.Write(table1);
                 AnsiConsole.Write(table2);
-
-                menuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>().AddChoices(new[] {"Register new vehicle", "Collect vehicle - Fungerar ej", "Move vehicle",
+                var table4 = new Table()
+                    .AddColumn(new TableColumn("What do you want to do?"));
+                menuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>().AddChoices(new[] {"Register new vehicle", "Find vehicle",
                     "Show parkingview", "Configure program", "Exit Program"}));
                 switch (menuChoice)
                 {
@@ -94,14 +104,13 @@ namespace PragueParking2._0
                         AnsiConsole.Write(table3);
                         subMenuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>()
                             .AddChoices(new[] { "Car", "MC", "Go back" }));
-
                         Console.Clear();
                         AnsiConsole.Write(table1);
                         AnsiConsole.Write(table2);
                         switch (subMenuChoice)
                         {
-                            case "Car": break;
-                            case "MC": break;
+                            case "Car" : break;
+                            case "MC" : break;
 
                             default:
                                 if (subMenuChoice == "Go back")
@@ -110,28 +119,72 @@ namespace PragueParking2._0
                                 }; break;
                         }
                         break;
-                    case "Collect vehicle": break;
-                    case "Move vehicle": break;
+                    case "Find vehicle" : 
+                        /*
+                         * 
+                         * Gör om programmet så att det frågar efter regnr innan den går vidare till valmöjligheterna. Om regnr finns -> Gå vidare om INTE så ge fel.
+                         */
+                        Console.Clear();
+                        AnsiConsole.Write(table1);
+                        AnsiConsole.Write(table4);
+                        subMenuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>()
+                            .AddChoices(new[] { "Find vehicle", "Collect vehicle", "Move vehicle", "Go back" }));
+                        switch (subMenuChoice)
+                        {
+                            case "Find vehicle" : break;
+                            case "Collect vehicle" : break;
+                            case "Move vehicle" : break;
+                            default:
+                                if (subMenuChoice == "Go back")
+                                {
+                                    subMenuChoice = null;
+                                }; break;
+                        }
+
+                        break;
                     case "Show parkingview":
                         Console.Clear();
                         AnsiConsole.Write(table1);
-                        var table4 = new Table()
-                        .AddColumn(new TableColumn("What do you want to do="));
                         AnsiConsole.Write(table4);
                         subMenuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>()
-                                            .AddChoices(new[] { "Find vehicle", "Small parkingview", "Large parkingview" }));
+                                            .AddChoices(new[] { "Small parkingview", "Large parkingview", "Go back" }));
                         switch (subMenuChoice)
                         {
-                            case "Find vehicle": break;
+                            case "Small parkingview" : break;
+                            case "Large parkingview" : break;
+
+                            default:
+                                if (subMenuChoice == "Go back")
+                                {
+                                    subMenuChoice = null;
+                                }; break;
+                        }
+                        break;
+                    case "Configure program": 
+                        Console.Clear();
+                        AnsiConsole.Write(table1);
+                        AnsiConsole.Write(table4);
+                        subMenuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>()
+                            .AddChoices(new[] { "Add new values", "Go back" }));
+                        switch (subMenuChoice)
+                        {
+                            case "Add new values":
+                                Console.WriteLine("Adding new values...");
+                                Console.WriteLine("Please wait...");
+                                Parkinghouse.parkingHouseValues.Clear();
+                                Parkinghouse.InitiateParkingValues();
+                                Console.WriteLine("All done. Press enter to return to main menu.");
+                                Console.ReadKey();
+                                foreach (Parkinghouse item in Parkinghouse.parkingHouseValues)
+                                {
+                                    Console.WriteLine(item);
+                                }
+                                break;
 
                             default:
                                 break;
                         }
-
-
-
                         break;
-                    case "Configure program": break;
                     case "Exit Program":
                         mainmenu = false;
                         Console.WriteLine("Closing program...");
@@ -146,78 +199,98 @@ namespace PragueParking2._0
                 //**********************************************************
                 if (menuChoice == "Register new vehicle" && subMenuChoice != null)
                 {
-                    Console.WriteLine("Please enter your registration number: ");
-                    string vehiclePlate = Console.ReadLine().ToUpper();
-                    
-                    while (!String.IsNullOrEmpty(vehiclePlate))         // kollar om sträng är null och inte empty. Mest för while loop ska fortsätta om man 
-                                                                        //skrivit fel för att enklare avbryta den.
-                    {
-                        //bool regCheck = ValitedateVehiclePlateInput(vehiclePlate);       // Kollar input från regnr via regex.
+                    Console.Clear();
+                    AnsiConsole.Write(table1);
+                    string plateNumber = " ";
+                    Console.WriteLine("Please enter a plate number: ");
+                    AskForVehiclePlate(out plateNumber);
 
-                        if (ValitedateVehiclePlateInput(vehiclePlate))
+                    while (!String.IsNullOrEmpty(plateNumber))         // kollar om sträng är null och inte empty. Mest för while loop ska fortsätta om man 
+                                                                       //skrivit fel för att enklare avbryta den.
+                    {
+                        if (ValitedateVehiclePlateInput(plateNumber) && FindVehicle(plateNumber) <= 0)
                         {
-                            AddVehicleToList(vehiclePlate, subMenuChoice);              // Går in i metoden och lägger till fordonet 
-                            Vehicle.VehicleParked(subMenuChoice);                       // Printar ut att fordonet har blivit parkerat, måste ha parkeringsplats med.
+                            Console.Clear();
+                            AnsiConsole.Write(table1);
+                            //Parkinghouse.AddSpotToList(subMenuChoice);
+                            AddVehicleToList(plateNumber, subMenuChoice);              // Lägger till fordon
+                            Vehicle.VehicleParked(subMenuChoice);                       // Printar ut att fordonet har blivit parkerat, måste ha parkeringsplats                                                             med.
                             Console.ReadKey();
                             break;
                         }
                         else
                         {
-                            vehiclePlate = null;
-                            Console.WriteLine("Something went wrong. Please enter a new platenumber or enter to go back to main menu.");
-                            vehiclePlate = Console.ReadLine();
+                            plateNumber = null;
+                            Console.WriteLine("You entered a non-valid plate number. Try again or press enter to return to main menu.");
+                            AskForVehiclePlate(out plateNumber);
                         }
                     }
                 }
-                //**********************************************************
-                // Visa parkeringslista
-                //**********************************************************
-                if (menuChoice == "Show parkingview")
+                if (menuChoice == "Find vehicle")
                 {
                     if (subMenuChoice == "Find vehicle")
                     {
+                        string plateNumber = " ";
                         Console.Clear();
                         AnsiConsole.Write(table1);
-                        AnsiConsole.Write(table2);
-                        Console.WriteLine("Please enter your registration number: ");
-                        string plateNumber = Console.ReadLine();
+                        Console.WriteLine("Please enter a plate number: ");
+                        AskForVehiclePlate(out plateNumber);
 
-                        // Nedan fungerar för att hitta fordon från en lista. Kolla över lambda för att hitta fordon i en lista.
-                        var titles = vehicles
-                            .Where(Vehicle => Vehicle.PlateNumber.Contains(plateNumber))
-                            .Select(Vehicle => Vehicle.PlateNumber);
-                        foreach (var title in titles)
+                        while (!String.IsNullOrEmpty(plateNumber))
                         {
-                            Console.WriteLine(title);
-                        }
+                            if (ValitedateVehiclePlateInput(plateNumber))
+                            {
+                                int index = FindVehicle(plateNumber);
 
-                        // lambda men fungerar inte korrekt
-                        if (vehicles.Exists(v => v.PlateNumber == plateNumber))
-                        {
-                            Console.WriteLine("Yes, does car does exist.");
+                                if (index >= 0)
+                                {
+                                    Console.Clear();
+                                    AnsiConsole.Write(table1);
+                                    Console.WriteLine("We found a vehicle with that registration number here.");
+                                    Console.WriteLine(Parkinghouse.vehicles[index].PlateNumber);
+                                    Console.ReadKey();
+                                    plateNumber = null;
+                                }
+                            }
+                            else
+                            {
+                                plateNumber = null;
+                                Console.WriteLine("You entered a non-valid plate number. Try again or press enter to return to main menu.");
+                                AskForVehiclePlate(out plateNumber);
+                            }
                         }
-                        else
-                        {
-                            Console.WriteLine("We cannot find a car with that platenumber.");
-                        }
-
-                        
-                        Console.ReadKey();
                     }
-                    else if (menuChoice == "Small parkingview")
+                    else if (subMenuChoice == "Collect vehicle")
+                    {
+
+                    }
+                }
+                //**********************************************************
+                // Visa parkeringslista // hitta fordon
+                //**********************************************************
+                /*
+                 * Gör om find vehicle så att alla funktioner finns i den, ex collect, move eller visa info.
+                 */
+
+                //String.IsNullOrEmpty
+
+                if (menuChoice == "Show parkingview")
+                {
+                    
+
+                    if (subMenuChoice == "Small parkingview")
                     {
                         Console.Clear();
                         AnsiConsole.Write(table1);
                         AnsiConsole.Write(table2);
                         Showparkingview();
-                        ReturnToMenu();
+                        Console.ReadKey();
                         continue;
                     }
-
                 }
                 if (menuChoice == "Configure program")
                 {
-                    Vehicle.NewPrice = ChangePriceList();
+
                 }
             }
             //************************************
@@ -227,150 +300,155 @@ namespace PragueParking2._0
 
         static List<Vehicle> InitializeParkingList<T>()          // out List<string> inputList
         {
+            List<string> currentParkedVehicles = new List<string>(100);
             currentParkedVehicles = File.ReadAllLines(filePath).ToList();
             foreach (string vehicle in currentParkedVehicles)
             {
-                string[] items = vehicle.Split(',');
-                Vehicle v = new Vehicle(items[0], items[1], (VehiclePricePerHour)int.Parse(items[2]));
-                //Vehicle v = new Vehicle();
-                vehicles.Add(v);
+                string[] items = vehicle.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                Vehicle v = new Vehicle(items[0], items[1], int.Parse(items[2]));
+                Parkinghouse.vehicles.Add(v);
             }
-            return vehicles;
-        }
-        static public List<string> InitiateSearchRegList<T>()
-        {
-            currentParkedVehicles.Clear();
-            var myList = vehicles.ConvertAll(x => x.ToString());
-            foreach (string vehicle in myList)
-            {
-                string[] items = vehicle.Split(',');
-                var v = items[1];
-                currentParkedVehicles.Add(v);
-            }
-            return currentParkedVehicles;
-        }
-        public static int InitiatePriceList(out Vehicle CurrentPrice)
-        {
-            CurrentPrice = null;
-            var priceList = File.ReadAllLines(pricePath);
-            foreach (var price in priceList)
-            {
-                string[] prices = price.Split(",");
-            }
-            foreach (int price in Enum.GetValues(typeof(VehiclePricePerHour)))
-            {
-                 
-            }
-            
-            //Vehicle.CurrentPrice = int.Parse(prices[0]);
-
-            //Console.ReadKey();
-            return Vehicle.CurrentPrice;
-
-            //CurrentPrice = null;
-            //string[] prices = File.ReadAllLines(pricePath);
-            //Vehicle.CurrentPrice = int.Parse(prices[0]);
-            //return Vehicle.CurrentPrice;
+            return Parkinghouse.vehicles;
         }
 
-        private static int ChangePriceList()
-        {
-            Console.Clear();
-            Console.WriteLine("Please give car a new value: ");
-            Vehicle.NewPrice = int.Parse(Console.ReadLine());
 
-            if (Vehicle.NewPrice != Vehicle.CurrentPrice)
-            {
-                Vehicle.CurrentPrice = Vehicle.NewPrice;
-                return Vehicle.CurrentPrice;
-            }
-            else
-            {
-                return Vehicle.CurrentPrice;
-            }
-        }
+        //************************************************************************************************************
+        #region gömd kod, pris per timme etc
+        //************************************
+        // Ändra priset på parking per timme
+        //************************************
 
-        public static List<Vehicle> ArrangeListWithFormat<T>()
-        {
-            List<string> outParkedVehicle = new List<string>();
-            foreach (Vehicle v in vehicles)
-            {
-                outParkedVehicle.Add(v.ToString());
-            }
-            File.WriteAllLines(parkedVehicle, outParkedVehicle);
+        //private static int ChangePriceList()
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("Please give car a new value: ");
+        //    Vehicle.NewPrice = int.Parse(Console.ReadLine());
 
-            return vehicles;
-        }
+        //    if (Vehicle.NewPrice != Vehicle.CurrentPrice)
+        //    {
+        //        Vehicle.CurrentPrice = Vehicle.NewPrice;
+        //        return Vehicle.CurrentPrice;
+        //    }
+        //    else
+        //    {
+        //        return Vehicle.CurrentPrice;
+        //    }
+        //}
+        //************************************
+        // Tanken är att lägga till beteckning för listan, enklare hantering.
+        //************************************
 
+        //public static List<Vehicle> ArrangeListWithFormat<T>()
+        //{
+        //    List<string> outParkedVehicle = new List<string>();
+        //    foreach (Vehicle v in Parkinghouse<Vehicle>.vehicles)
+        //    {
+        //        outParkedVehicle.Add(v.ToString());
+        //    }
+        //    File.WriteAllLines(parkedVehicle, outParkedVehicle);
+
+        //    return Parkinghouse<Vehicle>.vehicles;
+        //}
+        //************************************
         // För att spara senaste fordon till fil
-        private static bool SaveVehicleToFile(Vehicle newVehicle, string vehiclePlate)
+        //************************************
+        #endregion************************************************************************************************************
+        //************************************************************************************************************
+
+
+        public static bool SaveVehicleToFile(Vehicle newVehicle, string vehiclePlate)
         {
             string[] lines = { newVehicle.ToString() };
             File.AppendAllLines(Path.Combine(filePath), lines);
-            //lines[0] = vehiclePlate;
-            //File.AppendAllLines(Path.Combine(searchPlatenumber), lines);              // path finns ej kvar. 
             return true;
         }
-
+        //************************************
         // För att lägga till bilar i parkeringslistan
+        //************************************
+
         public static bool AddVehicleToList(string vehiclePlate, string type)
         {
+            int typePrice = 0;
             if (true)
             {
-                //ChangePriceList();
-                Vehicle.GetCorrectInfo(type, out Vehicle typePrice);                 // hämtar korrekt info om priset per timme för vilken typ av fordon
-
-                Vehicle newVehicle = new Vehicle(type, vehiclePlate, (VehiclePricePerHour)(int)Vehicle.CurrentPrice);
-
-                vehicles.Add(newVehicle);                                           // lägger till fordonet i Vehicle-lista
+                Parkinghouse.GetPrice(type, out typePrice);
+                Vehicle newVehicle = new Vehicle(type, vehiclePlate, typePrice);
+                Parkinghouse.vehicles.Add(newVehicle);                                           // lägger till fordonet i Vehicle-lista
                 SaveVehicleToFile(newVehicle, vehiclePlate);                         // lägger till det nya fordonet i textfilen
                 return true;
             }
         }
-        // Validerar input från användaren samt kollar längden.
-        private static bool ValitedateVehiclePlateInput(string vehiclePlate)
-        {
-            bool regCheck = false;
-            bool correctinput = false;
+        //************************************
+        // För att hitta speficfikt fordon i listan.
+        //************************************
 
-            while (!correctinput)
-            {
-                if (vehiclePlate != null)
-                {
-                    // Kollar så det inte finns massa onödiga specialtecken samt att det 10 eller mindre.
-                    string specialChar = @"^[^\s!.,;:#¤%&\/\\()=?`´@£$$€{}[\]]{0,10}$";
-                    Regex reg = new Regex(specialChar);
-                    regCheck = reg.IsMatch(vehiclePlate);
-                    return regCheck;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            return false;
+        public static int FindVehicle(string plateNumber)
+        {
+            int index = -1;
+            return index = Parkinghouse.vehicles.FindIndex(index => index.PlateNumber == plateNumber);
         }
 
+        //************************************
+        // Fråga efter regnr
+        //************************************
 
+        public static string AskForVehiclePlate(out string plateNumber)
+        {
+            plateNumber = " ";
+            plateNumber = Console.ReadLine().ToUpper();
+            return plateNumber;
+        }
+
+        //************************************
+        // Validerar input från användaren samt kollar längden.
+        //************************************
+
+        public static bool ValitedateVehiclePlateInput(string vehiclePlate)
+        {
+            bool regCheck = false;
+            //bool correctinput = false;
+
+            string specialChar = @"^[^\s!.,;:#¤%&\/\\()=?`´@£$$€{}[\]]{0,10}$";
+            Regex reg = new Regex(specialChar);
+            regCheck = reg.IsMatch(vehiclePlate);
+
+            return regCheck;
+        }
+
+        //************************************
         // Visa parkerade bilar
+        //************************************
         public static void Showparkingview()
         {
-            //var carPrice = new Vehicle(VehiclePricePerHour.Car);
-            //var mcPrice = new Vehicle(VehiclePricePerHour.MC);
-
-            //var vehicles = File.ReadAllLines(filePath).ToList();
-            foreach (var vehicle in vehicles)
+            foreach (var vehicle in Parkinghouse.vehicles)
             {
                 Console.WriteLine(vehicle.ToString());
             }
         }
-
+        //************************************
         // Ska fungera som en bakåt-metod
+        //************************************
+
         public static void ReturnToMenu()
         {
             Console.WriteLine("\nPress enter to return to main menu.");
             Console.ReadLine();
         }
+        //************************************
+        // 
+        //************************************
+        //static public List<string> InitiateSearchRegList<T>()
+        //{
+        //    currentParkedVehicles.Clear();
+        //    var myList = vehicles.ConvertAll(x => x.ToString());
+        //    foreach (string vehicle in myList)
+        //    {
+        //        string[] items = vehicle.Split(',');
+        //        var v = items[1];
+        //        currentParkedVehicles.Add(v);
+        //    }
+        //    return currentParkedVehicles;
+        //}
     }
 }
 
