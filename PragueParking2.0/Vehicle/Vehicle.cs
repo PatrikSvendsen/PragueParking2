@@ -6,8 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using PragueParking2._0;
 
-namespace PragueParking2._0
-{
 
     public class Vehicle
     {
@@ -117,4 +115,4 @@ namespace PragueParking2._0
             Console.WriteLine("Motorcycle has now been parked at <input spot here>");
         }
     }
-}
+

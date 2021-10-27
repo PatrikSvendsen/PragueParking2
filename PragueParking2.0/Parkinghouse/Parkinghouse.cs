@@ -9,7 +9,7 @@ namespace PragueParking2._0
 {
     public class Parkinghouse
     {
-        public static string pricePath = "../../../Vehiclevalues.txt";
+        public static string pricePath = "../../../Parkinghouse/Vehiclevalues.txt";
         public static List<Parkinghouse> parkingHouseValues = new List<Parkinghouse>();
         public static List<Vehicle> vehicles = new List<Vehicle>(100);
         
@@ -87,9 +87,7 @@ namespace PragueParking2._0
             foreach (string value in values)
             {
                 string[] items = value.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                //Vehicle v = new Vehicle(items[0], items[1], (VehiclePricePerHour)int.Parse(items[2]));
                 Parkinghouse item = new Parkinghouse(items[0], int.Parse(items[1]), int.Parse(items[2]));
-                //Vehicle v = new Vehicle();
                 parkingHouseValues.Add(item);
             }
             return ;
