@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,147 +8,152 @@ using System.Threading.Tasks;
 
 namespace PragueParking2._0
 {
-    public class Parkinghouse
+    public class ParkingHouse
     {
-        public static string pricePath = "../../../Parkinghouse/Vehiclevalues.txt";
-        public static List<Parkinghouse> parkingHouseValues = new List<Parkinghouse>();
-        public static List<Vehicle> vehicles = new List<Vehicle>(100);
-        
-
-        /*
-         * När nya fordonspriser eller platser ska läggas till måste pris och storlek anges. etc; CarPrice = 20, CarSize = 4.
-         */
-
+        public static List<Vehicle> vehicles = new List<Vehicle>();
+        public static string filePath = "../../../Parkinghouse/parkinglist.txt";                 // bör flyttas ut i parking house class
 
         //************************************
         // Fields
         //************************************
-        public string plateNumber;
-        public string type;
-        public int price;
-        public int size;
+
+        const int ParkingSpotSize = 4;
 
         //************************************
         // Constructors
         //************************************
-        public Parkinghouse()
-        {
 
-        }
-        public Parkinghouse( int price)
+        public ParkingHouse()
         {
-            Price = price;
+            try
+            {
+                for (int i = 1; i <= PHouseSize; i++)
+                {
+                    PHouse.Add(new ParkingSpot(ParkingSpotSize, i));
+                }
+
+                //List<string> currentParkedVehicles = new List<string>();
+                //currentParkedVehicles = File.ReadAllLines(filePath).ToList();
+                //foreach (string vehicle in currentParkedVehicles)
+                //{
+                //    Vehicle v;
+                //    string[] items = vehicle.Split(new char[] { ',', ' ', '(', ')' }, StringSplitOptions.RemoveEmptyEntries); //TODO: lägg till på datetime så att den innehåller : eller -
+                //                                                                                                              //Vehicle v = new Vehicle(items[0], items[1], int.Parse(items[2])); //DateTime.ParseExact(items[3], "dd/MM/yyyy-HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None));
+                //    if (items.Contains("Car"))
+                //    {
+                //        //ParkingSpot.ParkedVehicles.Add(new Car(items[1], int.Parse(items[2]), DateTime.ParseExact(items[3], "dd/MM/yyyy-HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None)));
+                //        v = new Car(items[2], int.Parse(items[3]), DateTime.ParseExact(items[4], "dd/MM/yyyy-HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None));
+                //        //ParkingSpot.ParkedVehicles.Add(v);
+                //        PHouse[int.Parse(items[0])].ParkVehicleToSpot(v, int.Parse(items[0]));
+                //    }
+                //}
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong, Line 54", e);
+            }
         }
-        public Parkinghouse(string type, int price)
+        public override string ToString()
         {
-            Type = type;
-            Price = price;
-        }
-        public Parkinghouse(string type, int price, int size)
-        {
-            Type = type;
-            Price = price;
-            Size = size;
+            return PHouse.ToString();
         }
 
         //************************************
         // Properties
         //************************************
 
-        public string Type
-        {
-            get { return type;  }
-            set { type = value; }
-        }
-        public int Price
-        {
-            get { return price; }
-            set { price = value; }
-        }
-        public int Size
-        {
-            get { return size; }
-            set { size = value; }
-        }
+        private int PHouseSize { get; } = 3;           // ändra till 100 
 
-        public string PlateNumber { get; set; }
+        public static List<ParkingSpot> PHouse = new();
 
-        public override string ToString()
-        {
-            return type + ", " + plateNumber + ", " + price + ", " + size;
-        }
+        //public override string ToString()d
+        //{
+        //    return type + ", " + price;
+        //}
 
         //*****************************
         // Metoder
         //*****************************
 
-        public static void InitiateParkingValues()
+        public bool ParkVehicle(Vehicle vehicle)
         {
-            string[] values = File.ReadAllLines(pricePath);
-            foreach (string value in values)
+            for (int i = 0; i <= PHouse.Count; i++)
             {
-                string[] items = value.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                Parkinghouse item = new Parkinghouse(items[0], int.Parse(items[1]), int.Parse(items[2]));
-                parkingHouseValues.Add(item);
-            }
-            return ;
-        }
+                bool isSpotEmpty = PHouse[i].CheckSpace(vehicle);
 
-        //***
-        // Retunerar priset på vald type
-        //***
-        public static int GetPrice(string type, out int price)
-        {
-            foreach (var item in parkingHouseValues)
-            {
-                if (item.type == type)
+                if (isSpotEmpty)
                 {
-                    price = item.Price;
-                    return price;
+                    PHouse[i].ParkVehicleToSpot(vehicle, i);
+                    return true;
                 }
             }
-            price = -1;
-            return -1;
+            return false;
         }
-        //public static void AddSpotToList(string type)
+        public static bool CheckIfExists(string plateNumber)
+        {
+            /*
+             * Tar emot string regnr, om den existerar ger den true annars false.
+             */
+
+            bool check = false;
+            for (int i = 0; i < PHouse.Count; i++)
+            {
+                if (check = PHouse[i].FindVehicle(plateNumber) == true)
+                {
+                    return check;
+                }
+            }
+            return check;
+        }
+        public static bool RemoveVehicle(string plateNumber)
+        {
+            bool check = false;
+            for (int i = 0; i < PHouse.Count;)
+            {
+                return check = PHouse[i].RemoveVehicle(plateNumber);
+            }
+
+            return check;
+        }
+
+        public static int FindSpot(string plateNumber)
+        {
+            int spot = -1;
+            for (int i = 0; i < PHouse.Count; i++)
+            {
+                spot = PHouse[i].FindSpot(plateNumber);
+            }
+
+            return spot;
+        }
+        public static bool MoveVehicle(string plateNumber)
+        {
+            for (int i = 0; i < PHouse.Count; i++)
+            {
+                PHouse[i].MoveVehicle(plateNumber);
+        }
+            return true;
+        }
+
+        //public void RunList()
         //{
-        //    var value = 0;
 
-        //    foreach (var item in parkingHouseValues)
+        //    List<string> currentParkedVehicles = new List<string>();
+        //    currentParkedVehicles = File.ReadAllLines(filePath).ToList();
+        //    foreach (string vehicle in currentParkedVehicles)
         //    {
-        //        if (item.type == type)
+        //        Vehicle v;
+        //        string[] items = vehicle.Split(new char[] { ',', ' ', '(', ')' }, StringSplitOptions.RemoveEmptyEntries); //TODO: lägg till på datetime så att den innehåller : eller -
+        //        //Vehicle v = new Vehicle(items[0], items[1], int.Parse(items[2])); //DateTime.ParseExact(items[3], "dd/MM/yyyy-HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None));
+        //        if (items.Contains("Car"))
         //        {
-        //            value = item.Size;
-
-        //            if (value <= (int)ParkingSize.Maxsize)
-        //            {
-        //                ParkingSpot spot = new ParkingSpot((int)ParkingSize.Maxsize, value);
-
-        //            }
+        //            //ParkingSpot.ParkedVehicles.Add(new Car(items[1], int.Parse(items[2]), DateTime.ParseExact(items[3], "dd/MM/yyyy-HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None)));
+        //            //v = new Car(items[2], int.Parse(items[3]), DateTime.ParseExact(items[4], "dd/MM/yyyy-HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None));
+        //            //ParkingSpot.ParkedVehicles.Add(v);
+        //            PHouse[int.Parse(items[0])].ParkVehicleToSpot(v, int.Parse(items[0]));
         //        }
         //    }
         //}
-
-        public enum ParkingSize
-        {
-            Maxsize = 4
-        }
-
-        public class ParkingSpot : Parkinghouse
-        {
-            public static List<int> parkingSize = new List<int>(100);
-
-            public ParkingSpot(ParkingSize maxSize, int size) : base(size)
-            {
-                MaxSize = maxSize;
-                this.size = size;
-            }
-            public ParkingSize MaxSize { get; private set; }
-
-            
-
-
-
-        }
     }
 }
