@@ -14,8 +14,12 @@ namespace PragueParking2._0
             AvailableSize = spotSize;
             //Size = spotSize;
         }
+        public ParkingSpot(int spot, Vehicle vehicle)
+        {
+            Spot = spot;
+        }
 
-        int Spot { get; set; }
+        internal int Spot { get; set; }
         private int Size { get; set; }
 
         private int AvailableSize { get; set; }  // = parkingSpotSize = 4;
@@ -27,35 +31,48 @@ namespace PragueParking2._0
             return Spot.ToString(); // + ParkedVehicles.ToString();
         }
 
-        public bool ParkVehicleToSpot(Vehicle vehicle, int spot)
+        internal bool ParkVehicleToSpot(Vehicle vehicle, int spot)
         {
-            for (int i = 0; i < ParkingHouse.PHouse.Count; i++)
+            //for (int i = 0; i < ParkingHouse.PHouse.Count; i++)
+            //{
+            //    if (Spot == i)
+            //    {
+            //        ParkedVehicles.Insert(spot, vehicle);
+            //        //ParkingHouse.(spot, vehicle);
+            //        //AvailableSize -= vehicle.Size;
+
+            //        AvailableSize -= vehicle.Size;
+            //        vehicle.Spot = Spot;
+            //        Vehicle.SaveVehicleToFile(vehicle, spot);
+            //        return true;
+            //    }
+            //}
+
+            foreach (var line in ParkingHouse.PHouse)
             {
-                if (i == spot)
+                if (line.Spot == spot + 1)
                 {
-                    ParkedVehicles.Insert(spot, vehicle);
-                    //AvailableSize -= vehicle.Size;
+                    ParkedVehicles.Add(vehicle);
                     AvailableSize -= vehicle.Size;
                     vehicle.Spot = Spot;
-                    Vehicle.SaveVehicleToFile(vehicle, spot);
-                    return true;
                 }
+
             }
 
             //return vehicles.Contains(vehicle);   
             return true;
         }
-        public bool CheckSpace(Vehicle vehicle)
+        public bool CheckSpace(int size)
         {
             for (int i = 0; i < ParkingHouse.PHouse.Count; i++)
             {
 
-                if (AvailableSize == 4 & vehicle.Size == 4)
+                if (AvailableSize == 4 & size == 4)
                 {
                     //spot = i;
                     return true;
                 }
-                else if (AvailableSize == 2 || AvailableSize == 4 & vehicle.Size == 2)
+                else if (AvailableSize == 2 || AvailableSize == 4 & size == 2)
                 {
                     return true;
                 }
@@ -100,7 +117,6 @@ namespace PragueParking2._0
                     var vehicle = ReturnObjectVehicle(plateNumber);
                     check = ParkedVehicles.Remove(vehicle);
                     AvailableSize += vehicle.Size;
-                    vehicle.Spot = 0;
                     break;
                 }
             }

@@ -75,12 +75,27 @@ namespace PragueParking2._0
         //*****************************
         // Metoder
         //*****************************
+        public bool IsSpotEmpty(Vehicle vehicle, out int i) // Vehicle vehicle
+        {
+            i = 0;
+            bool isSpotEmpty = false;
+
+            for (i = 0; i <= PHouse.Count; i++)
+            {
+                isSpotEmpty = PHouse[i].CheckSpace(vehicle.Size);
+            }
+
+            return isSpotEmpty;
+        }
 
         public bool ParkVehicle(Vehicle vehicle)
         {
+
             for (int i = 0; i <= PHouse.Count; i++)
             {
-                bool isSpotEmpty = PHouse[i].CheckSpace(vehicle);
+                bool isSpotEmpty = PHouse[i].CheckSpace(vehicle.Size);
+                //int i;
+                //bool isSpotEmpty = IsSpotEmpty(vehicle, out i);
 
                 if (isSpotEmpty)
                 {
@@ -120,19 +135,23 @@ namespace PragueParking2._0
         public static int FindSpot(string plateNumber)
         {
             int spot = -1;
-            for (int i = 0; i < PHouse.Count; i++)
+            //for (int i = 0; i < PHouse.Count; i++)
+            //{
+            //    spot = PHouse[i].FindSpot(plateNumber);
+            //}
+            foreach (var item in PHouse)
             {
-                spot = PHouse[i].FindSpot(plateNumber);
+                item.FindSpot(plateNumber);
             }
 
             return spot;
         }
-        public static bool MoveVehicle(string plateNumber)
+        public static bool ReParkVehicle(string plateNumber, int spot)
         {
-            for (int i = 0; i < PHouse.Count; i++)
-            {
-                PHouse[i].MoveVehicle(plateNumber);
-        }
+
+            //bool isSpotEmpty = PHouse[spot].CheckSpace(vehicle);
+
+
             return true;
         }
 

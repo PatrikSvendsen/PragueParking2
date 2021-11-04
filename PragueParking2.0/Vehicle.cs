@@ -15,7 +15,7 @@ public class Vehicle
     // Fields
     //************************************
 
-    public DateTime dateTime;
+    //public DateTime dateTime;
 
     //************************************
     // Constructors
@@ -30,7 +30,6 @@ public class Vehicle
         this.PlateNumber = plateNumber;
         TimeParked = DateTime.Now;
         Spot = 0;
-        
     }
     //************************************
     // Properties

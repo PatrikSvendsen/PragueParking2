@@ -55,6 +55,8 @@ namespace PragueParking2._0
 
         //public static ParkingHouse pHouseList = new();
         public static ParkingHouse pHouseList = new();
+        //public static ParkingHouse[] pHouseArr = new ParkingHouse[5];
+
 
         public static void Main(string[] args)
         {
@@ -64,6 +66,11 @@ namespace PragueParking2._0
 
 
             //ParkingHouse.InitializeParkedVehiclesList<Vehicle>();   // Läser in sparad fil med parkerade bilar
+
+            //for (int i = 0; i < pHouseArr.Length; i++)
+            //{
+            //    pHouseArr[i] = new ParkingHouse();
+            //}
 
             VehiclePriceList.InitiateParkingValues();
 
@@ -287,13 +294,14 @@ namespace PragueParking2._0
                             {
                                 Console.WriteLine("Vehicle not removed");
                             }
-
                             Console.ReadKey();
                         }
                         else if (subMenuChoice == "Move vehicle")
                         {
+                            
+                            AskForNewSpot(out int spot);
 
-                            ParkingHouse.MoveVehicle(plateNumber);
+                            ParkingHouse.ReParkVehicle(plateNumber, spot);
                             Console.ReadKey();
                         }
                     }
@@ -351,19 +359,16 @@ namespace PragueParking2._0
         // För att lägga till fordon i parkeringslistan
         //************************************
 
-        //TODO: Se över metod, flytta ut allt till menyn?
         public static bool AddVehicleToList(string vehiclePlate, string type)
         {
             bool check = false;
             if (type == "Car")
             {
                 check = pHouseList.ParkVehicle(new Car(vehiclePlate));
-
             }
             else if (type == "MC")
             {
                 check = pHouseList.ParkVehicle(new MC(vehiclePlate));
-
             }
             return check;
         }
@@ -377,6 +382,13 @@ namespace PragueParking2._0
             plateNumber = " ";
             plateNumber = Console.ReadLine().ToUpper();
             return plateNumber;
+        }
+
+        public static int AskForNewSpot(out int spot)
+        {
+            Console.WriteLine("Please write a new spot: NUMBERS ONLY");
+            return spot = int.Parse(Console.ReadLine());
+            
         }
 
         //************************************
