@@ -11,16 +11,6 @@ public class Vehicle
 {
     public static string filePath = "../../../Parkinghouse/parkinglist.txt";                 // bör flyttas ut i parking house class
 
-    //************************************
-    // Fields
-    //************************************
-
-    //public DateTime dateTime;
-
-    //************************************
-    // Constructors
-    //************************************
-
     public Vehicle()
     {
 
@@ -29,14 +19,10 @@ public class Vehicle
     {
         this.PlateNumber = plateNumber;
         TimeParked = DateTime.Now;
-        Spot = 0;
+        this.Spot = 0;
     }
-    //************************************
-    // Properties
-    //**********************************
 
-
-    public string PlateNumber { get; set; }
+    public string PlateNumber { get; set; }     // TODO: Implementera Regex i set; ?
     public int Size { get; set; }
     public int Price { get; set; }
     public int Spot { get; set; }
@@ -47,14 +33,11 @@ public class Vehicle
         return GetType() + ", " + PlateNumber + ", " + Price + ", " + TimeParked.ToString("dd/MM/yyyy-HH:mm");
     }
 
-    //************************************
-    // Methods
-    //************************************
-
     public virtual void PrintVehicleParked()
     {
         Console.WriteLine("Vehicle has now been parked.");
     }
+
     public static bool SaveVehicleToFile(Vehicle vehicle, int spot)
     {
         var type = vehicle.GetType();
@@ -62,11 +45,5 @@ public class Vehicle
         File.AppendAllLines(Path.Combine(filePath), lines);
         return true;
     }
-
-    //************************************
-    // För att hitta speficfikt fordon i listan.
-    //************************************
-
-
 }
 

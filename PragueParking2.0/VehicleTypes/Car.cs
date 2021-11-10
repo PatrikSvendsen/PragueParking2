@@ -17,7 +17,6 @@ class Car : Vehicle
     //    DateTime timeparked = TimeParked;
     //}
 
-
     public override void PrintVehicleParked()
     {
         Console.WriteLine("Car has now been parked at <input spot here>");

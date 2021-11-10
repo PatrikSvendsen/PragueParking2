@@ -37,7 +37,9 @@ uppleva att bilden är stabil, tydlig och lätt att förstå
  * 
  * TODO: 
  * 
- * Använda Delegat för att skriva ut CW vid parkerat fordon, finns i genomgång 15. Kolla om Multicast går att använda vid registrering av fordon för att hitta rätt kostnad etc.
+ * ParkVehile
+ * Fungerar, lägger till bil eller mc om plats finns. Dock Om bil tas bort på plats 1 och en mc står på plats 2 så kommer den att lägga till mc på plats 1. Funktionen är
+ * inte "optimerad"
  * 
  * 
  * REMOVE VEHICLE
@@ -45,34 +47,23 @@ uppleva att bilden är stabil, tydlig och lätt att förstå
  * Justera kostnad så att den printas ut.
  * Fixa felmed vid full parkering.
  * 
+ * 
+ * MOVE VEHICLE
+ * 
+ * När man försöker flytta fordon och platsen är tagen ska man inte slungas ut till huvudmenyn utan tillbaka till submenu för hantera fordon. Dubbelkolla resten av 
  */
 
 namespace PragueParking2._0
 {
-
     class Program
     {
-
-        //public static ParkingHouse pHouseList = new();
         public static ParkingHouse pHouseList = new();
-        //public static ParkingHouse[] pHouseArr = new ParkingHouse[5];
-
 
         public static void Main(string[] args)
         {
-            //************************************
-            // Main 
-            //************************************
-
-
             //ParkingHouse.InitializeParkedVehiclesList<Vehicle>();   // Läser in sparad fil med parkerade bilar
-
-            //for (int i = 0; i < pHouseArr.Length; i++)
-            //{
-            //    pHouseArr[i] = new ParkingHouse();
-            //}
-
             VehiclePriceList.InitiateParkingValues();
+            //DataConfig.Config.InitiateData();
 
             var menuChoice = "";
             var subMenuChoice = "";
@@ -126,58 +117,9 @@ namespace PragueParking2._0
                                 }; break;
                         }
                         break;
-                    case "Handle parked vehicle":
-                        break;
-
-                    case "Show parkingview":
-                        Console.Clear();
-                        AnsiConsole.Write(table1);
-                        AnsiConsole.Write(table4);
-                        subMenuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>()
-                                            .AddChoices(new[] { "Small parkingview", "Large parkingview", "Go back" }));
-
-                        switch (subMenuChoice)
-                        {
-                            case "Small parkingview": break;
-                            case "Large parkingview": break;
-
-                            default:
-                                if (subMenuChoice == "Go back")
-                                {
-                                    subMenuChoice = null;
-                                }; break;
-                        }
-                        break;
+                    case "Handle parked vehicle": break;
+                    case "Show parkingview": break;
                     case "Configure program":
-                        Console.Clear();
-                        AnsiConsole.Write(table1);
-                        AnsiConsole.Write(table4);
-                        subMenuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>()
-                            .AddChoices(new[] { "Read new values via text file", "Go back" }));
-                        switch (subMenuChoice)
-                        {
-                            case "Read new values via text file":
-                                Console.WriteLine("Adding new values...");
-                                Console.WriteLine("Please wait...");
-                                foreach (var item in VehiclePriceList.parkingHouseValues)
-                                {
-                                    //Console.WriteLine("Vehicle type: " + item.Type + ", " + "Price per hour: " + item.Price + ", " + "Vehicle size in parkinghouse: " + item.VehicleSize);
-                                }
-                                VehiclePriceList.parkingHouseValues.Clear();
-                                //ParkingHouse.InitiateParkingValues();
-                                Console.WriteLine("All done. Printing new values");
-                                foreach (var item in VehiclePriceList.parkingHouseValues)
-                                {
-                                    //Console.WriteLine("Vehicle type: " + item.Type + ", " + "Price per hour: " + item.Price + ", " + "Vehicle size in parkinghouse: " + item.VehicleSize);
-                                }
-                                Console.WriteLine("Press enter to return to main menu.");
-                                Console.ReadKey();
-
-                                break;
-
-                            default:
-                                break;
-                        }
                         break;
                     case "Exit Program":
                         mainmenu = false;
@@ -188,59 +130,51 @@ namespace PragueParking2._0
                         Console.WriteLine("Please choose a correct option.");
                         break;
                 }
-                //**********************************************************
-                // Registrera fordon
-                //**********************************************************
 
                 if (menuChoice == "Register new vehicle" && subMenuChoice != null)
                 {
                     Console.Clear();
                     AnsiConsole.Write(table1);
-                    string plateNumber = " ";
+                    string plateNumber = String.Empty;
+
                     bool check;
+                    Vehicle vehicle;
                     Console.WriteLine("Please enter a plate number: ");
                     AskForVehiclePlate(out plateNumber);
-
-                    while (!String.IsNullOrEmpty(plateNumber))         // kollar om sträng är null och inte empty. Mest för while loop ska fortsätta om man 
-                                                                       //skrivit fel för att enklare avbryta den.
+                    plateNumber = IsPlateOk(plateNumber, out vehicle, out check);
+                    if (plateNumber == null)
                     {
-                        if (ValitedateVehiclePlateInput(plateNumber) && ParkingHouse.CheckIfExists(plateNumber) == false)        //metod for checkifexists skall returnera false om den inte finns.
+                        continue;
+                    }
+                    if (check == false && vehicle == null)
+                    {
+                        Console.Clear();
+                        AnsiConsole.Write(table1);
+                        check = AddVehicleToList(plateNumber, subMenuChoice);
+                        if (check == true)
                         {
-                            Console.Clear();
-                            AnsiConsole.Write(table1);
-                            check = AddVehicleToList(plateNumber, subMenuChoice);
-                            if (check == true)
-                            {
-                                Console.WriteLine("Vehicle has now been parked");
-                            }
-                            else
-                            {
-                                Console.WriteLine("There no empty spaces");
-                            }
-
+                            Console.WriteLine("Vehicle has now been parked");
                             Console.ReadKey();
-                            break;
                         }
-                        else
-                        {
-                            plateNumber = null;
-                            Console.WriteLine("You entered a non-valid plate number. Try again or press enter to return to main menu.");
-                            AskForVehiclePlate(out plateNumber);
-                        }
+                    }
+                    else if (check == true && vehicle != null)
+                    {
+                        Console.WriteLine("Vehicle already exist"); // TODO: Måste dubbelkollas
+                        Console.ReadKey();
                     }
                 }
                 if (menuChoice == "Handle parked vehicle")
                 {
                     string plateNumber;
-                    int index;
                     bool check;
+                    Vehicle vehicle;
                     Console.Clear();
                     AnsiConsole.Write(table1);
                     AnsiConsole.Write(table4);
 
                     Console.WriteLine("Please enter a plate number: ");
                     AskForVehiclePlate(out plateNumber);
-                    plateNumber = SendOkIfPlateIsOk(plateNumber, out index, out check);      // tar emot regnr och kontrollerar så det är korrekt.
+                    plateNumber = IsPlateOk(plateNumber, out vehicle, out check);      // tar emot regnr och kontrollerar så det är korrekt.
                     if (plateNumber == null)
                     {
                         continue;           // om plateNumber kommer tillbaka null betyder det att man valt att ange endast enter vid angivning av regnr. Prompt                    som kommer upp om man skriver fel och ska ange nytt regnr. Skriv in nytt eller tryck enter för retur till                               mainmenu.
@@ -276,16 +210,16 @@ namespace PragueParking2._0
                                 int spot = ParkingHouse.FindSpot(plateNumber);
                                 Console.Clear();
                                 AnsiConsole.Write(table1);
-                                Console.WriteLine("We found a vehicle with that registration nu" +
-                                    "mber here.");
-                                //Console.WriteLine(ParkingSpot.ParkedVehicles[index]);
-                                Console.WriteLine(index + 1);
+                                Console.WriteLine("We found a vehicle with that registration number here.");
                                 Console.ReadKey();
                             }
                         }
                         else if (subMenuChoice == "Collect vehicle")
                         {
-                            check = ParkingHouse.RemoveVehicle(plateNumber);
+                            bool priceCheck;
+                            int price;
+                            priceCheck = ParkingHouse.CalculatePriceOnCheckOut(vehicle.Price, vehicle.TimeParked, out price);
+                            check = ParkingHouse.RemoveVehicle(vehicle);
                             if (check == true)
                             {
                                 Console.WriteLine("Vehicle removed");
@@ -298,43 +232,92 @@ namespace PragueParking2._0
                         }
                         else if (subMenuChoice == "Move vehicle")
                         {
-                            
-                            AskForNewSpot(out int spot);
+                            string spot;
+                            AskForNewSpot(out spot);
+                            //check = ValidateSpotInput(spot);
+                            int spotInt = IsSpotOk(spot, out check);
 
-                            ParkingHouse.ReParkVehicle(plateNumber, spot);
+                            if (check == true)
+                            {
+                                if (ParkingHouse.ReParkVehicle(vehicle, spotInt))
+                                {
+                                    Console.WriteLine("Vehicle can now be moved.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("This spot is taken.");
+                                }
+                            }
+                            else
+                            {
+                            }
                             Console.ReadKey();
                         }
                     }
                 }
-
-                //**********************************************************
-                // Visa parkeringslista // hitta fordon
-                //**********************************************************
-
                 if (menuChoice == "Show parkingview")
                 {
+                    Console.Clear();
+                    AnsiConsole.Write(table1);
+                    AnsiConsole.Write(table4);
+                    subMenuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>()
+                                        .AddChoices(new[] { "Small parkingview", "Large parkingview", "Go back" }));
+
+                    switch (subMenuChoice)
+                    {
+                        case "Small parkingview": break;
+                        case "Large parkingview": break;
+
+                        default:
+                            if (subMenuChoice == "Go back")
+                            {
+                                subMenuChoice = null;
+                            }; break;
+                    }
+
                     if (subMenuChoice == "Small parkingview")
                     {
                         Console.Clear();
                         AnsiConsole.Write(table1);
                         AnsiConsole.Write(table2);
-                        Showparkingview();
+                        //Showparkingview();
                         Console.ReadKey();
                         continue;
                     }
                 }
                 if (menuChoice == "Configure program")
                 {
+                    Console.Clear();
+                    AnsiConsole.Write(table1);
+                    AnsiConsole.Write(table4);
+                    subMenuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>()
+                        .AddChoices(new[] { "Read new values via text file", "Go back" }));
+                    switch (subMenuChoice)
+                    {
+                        case "Read new values via text file":
+                            Console.WriteLine("Adding new values...");
+                            Console.WriteLine("Please wait...");
+                            foreach (var item in VehiclePriceList.parkingHouseValues)
+                            {
+                                //Console.WriteLine("Vehicle type: " + item.Type + ", " + "Price per hour: " + item.Price + ", " + "Vehicle size in parkinghouse: " + item.VehicleSize);
+                            }
+                            VehiclePriceList.parkingHouseValues.Clear();
+                            //ParkingHouse.InitiateParkingValues();
+                            Console.WriteLine("All done. Printing new values");
+                            foreach (var item in VehiclePriceList.parkingHouseValues)
+                            {
+                                //Console.WriteLine("Vehicle type: " + item.Type + ", " + "Price per hour: " + item.Price + ", " + "Vehicle size in parkinghouse: " + item.VehicleSize);
+                            }
+                            Console.WriteLine("Press enter to return to main menu.");
+                            Console.ReadKey();
+                            break;
 
+                        default:
+                            break;
+                    }
                 }
             }
-            //************************************
-            // Metoder
-            //************************************
         }
-        //************************************
-        // Initierar parkerade fordon vid uppstart av program
-        //************************************
 
         //static List<Vehicle> InitializeParkingList<T>()
         //{
@@ -348,16 +331,6 @@ namespace PragueParking2._0
         //    }
         //    return ParkingHouse.vehicles;
         //}
-
-        //************************************
-        // För att spara ned nya fordon till lista
-        //************************************
-
-
-
-        //************************************
-        // För att lägga till fordon i parkeringslistan
-        //************************************
 
         public static bool AddVehicleToList(string vehiclePlate, string type)
         {
@@ -373,10 +346,6 @@ namespace PragueParking2._0
             return check;
         }
 
-        //************************************
-        // Fråga efter regnr
-        //************************************
-
         public static string AskForVehiclePlate(out string plateNumber)
         {
             plateNumber = " ";
@@ -384,53 +353,85 @@ namespace PragueParking2._0
             return plateNumber;
         }
 
-        public static int AskForNewSpot(out int spot)
+        public static string AskForNewSpot(out string spot)
         {
-            Console.WriteLine("Please write a new spot: NUMBERS ONLY");
-            return spot = int.Parse(Console.ReadLine());
-            
+            Console.WriteLine("Please write a new spot: ");
+            return spot = Console.ReadLine();
         }
-
-        //************************************
-        // Validerar input från användaren samt kollar längden.
-        //************************************
-
-        public static bool ValitedateVehiclePlateInput(string vehiclePlate)
+        public static bool ValidateVehiclePlateInput(string vehiclePlate)
         {
             bool regCheck;
             string specialChar = @"^[^\s!.,;:#¤%&\/\\()=?`´@'£$$€{}[\]]{0,10}$";
             Regex reg = new Regex(specialChar);
             regCheck = reg.IsMatch(vehiclePlate);
-
             return regCheck;
         }
 
-        //************************************
-        // Ska fungera som en mindre validerings metod. "mindre"
-        //************************************
-
-        public static string SendOkIfPlateIsOk(string plateNumber, out int index, out bool check)
+        public static bool ValidateSpotInput(string spot)
         {
-            //TODO: Se över metod, för krånlig1??
+            bool spotCheck;
+            string specialChar = @"^[1-9][0-9]?$|^100\d*$";
+            Regex reg = new Regex(specialChar);
+            spotCheck = reg.IsMatch(spot);
+            return spotCheck;
+        }
+
+        public static int IsSpotOk(string spot, out bool check)
+        {
             check = false;
-            index = -1;
+            int spotInt = 0;
+            while (!String.IsNullOrEmpty(spot))
+            {
+                if (ValidateSpotInput(spot))
+                {
+                    spotInt = Int32.Parse(spot);
+                    if (spotInt <= 100 && spotInt > 1)
+                    {
+                        check = true;
+                        return spotInt;
+                    }
+                    else
+                    {
+                        check = false;
+                        return spotInt;
+                    }
+                }
+                else
+                {
+                    spot = null;
+                    Console.WriteLine("Incorrect input, please enter numbers only.");
+                    AskForNewSpot(out spot);
+                }
+            }
+            return spotInt;
+        }
+
+        /// <summary>
+        /// Returnerar false om regnr inte finns, true om det finns. Finns det skickas vehicle med.
+        /// </summary>
+        /// <param name="plateNumber"></param>
+        /// <param name="vehicle"></param>
+        /// <param name="check"></param>
+        /// <returns></returns>
+        public static string IsPlateOk(string plateNumber, out Vehicle vehicle, out bool check)
+        {
+            check = false;
+
             Console.WriteLine("\n");
             while (!String.IsNullOrEmpty(plateNumber))
             {
-                if (ValitedateVehiclePlateInput(plateNumber))       // kontrollerar så regnr inte har specialtecken eller mellanslag
+                if (ValidateVehiclePlateInput(plateNumber))       // kontrollerar så regnr inte har specialtecken eller mellanslag
                 {
-                    //index = ParkingSpot.FindVehicle(plateNumber);           // kontrollerar så regnr inte redan finns
-                    check = ParkingHouse.CheckIfExists(plateNumber);           // kontrollerar så regnr inte redan finns
+                    check = ParkingHouse.CheckIfExists(plateNumber, out vehicle);           // kontrollerar så regnr inte redan finns
 
                     if (check == true)
                     {
-                        //index = ParkingSpot.ParkedVehicles.FindIndex(index => index.PlateNumber == plateNumber);        // Ska returnera index om forondet existerar i listan. 
-                        check = true;
+                        //check = true;
                         return plateNumber;             // returnerar regnr om det finns.
                     }
                     else if (check == false)
                     {
-                        check = false;
+                        //check = false;
                         return plateNumber;        // Returnerar false om regnr inte finns.
                     }
                 }
@@ -441,21 +442,25 @@ namespace PragueParking2._0
                     AskForVehiclePlate(out plateNumber);
                 }
             }
+            vehicle = null;
             return null;
         }
-
-        //************************************
-        // Visa parkerade bilar
-        //************************************
-
-        public static void Showparkingview()
+        public static int ConvertStringToInt(string spot)
         {
-            for (int i = 0; i < ParkingHouse.PHouse.Count; i++)
-            {
-                Console.WriteLine(i);
-                pHouseList.ToString();
-            }
+            int intSpot;
+            return intSpot = Int32.Parse(spot);
         }
+
+
+        //TODO: Fixa så att detta finns i ParkingHouse
+        //public static void Showparkingview()
+        //{
+        //    for (int i = 0; i < ParkingHouse.PHouse.Count; i++)
+        //    {
+        //        Console.WriteLine(i);
+        //        pHouseList.ToString();
+        //    }
+        //}
 
         //TODO: Gömd kod
         //************************************************************************************************************

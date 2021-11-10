@@ -3,16 +3,13 @@ using System.Linq;
 
 namespace PragueParking2._0
 {
-
     public class ParkingSpot
     {
-
         public ParkingSpot(int spotSize, int spot)
         {
             Spot = spot;
             Size = spotSize;
             AvailableSize = spotSize;
-            //Size = spotSize;
         }
         public ParkingSpot(int spot, Vehicle vehicle)
         {
@@ -33,21 +30,6 @@ namespace PragueParking2._0
 
         internal bool ParkVehicleToSpot(Vehicle vehicle, int spot)
         {
-            //for (int i = 0; i < ParkingHouse.PHouse.Count; i++)
-            //{
-            //    if (Spot == i)
-            //    {
-            //        ParkedVehicles.Insert(spot, vehicle);
-            //        //ParkingHouse.(spot, vehicle);
-            //        //AvailableSize -= vehicle.Size;
-
-            //        AvailableSize -= vehicle.Size;
-            //        vehicle.Spot = Spot;
-            //        Vehicle.SaveVehicleToFile(vehicle, spot);
-            //        return true;
-            //    }
-            //}
-
             foreach (var line in ParkingHouse.PHouse)
             {
                 if (line.Spot == spot + 1)
@@ -55,37 +37,29 @@ namespace PragueParking2._0
                     ParkedVehicles.Add(vehicle);
                     AvailableSize -= vehicle.Size;
                     vehicle.Spot = Spot;
+                    return true;
                 }
-
             }
 
             //return vehicles.Contains(vehicle);   
-            return true;
-        }
-        public bool CheckSpace(int size)
-        {
-            for (int i = 0; i < ParkingHouse.PHouse.Count; i++)
-            {
-
-                if (AvailableSize == 4 & size == 4)
-                {
-                    //spot = i;
-                    return true;
-                }
-                else if (AvailableSize == 2 || AvailableSize == 4 & size == 2)
-                {
-                    return true;
-                }
-
-            }
-            //spot = -1;
             return false;
         }
-        //public int FindVehicle(string plateNumber)
-        //{
-        //    int index = -1;
-        //    return index = ParkedVehicles.FindIndex(index => index.PlateNumber == plateNumber);
-        //}
+
+        public bool CheckSpace(Vehicle vehicle)
+        {
+            //for (int i = 0; i < ParkingHouse.PHouse.Count; i++)
+            //{
+            if (AvailableSize == 4 & vehicle.Size == 4)
+            {
+                return true;
+            }
+            else if (AvailableSize == 4 || AvailableSize == 2 & vehicle.Size == 2)
+            {
+                return true;
+            }
+            //}
+            return false;
+        }
 
         public bool FindVehicle(string plateNumber)
         {
@@ -97,35 +71,19 @@ namespace PragueParking2._0
                     return check;
                 }
             }
-
-            //var vehicle = ReturnObjectVehicle(plateNumber);
-            //if (vehicle != null)
-            //{
-            //    return true;
-            //}
-
             return check;
         }
-        public bool RemoveVehicle(string plateNumber)
+        public bool RemoveVehicle(Vehicle vehicle)
         {
             bool check = false;
-            for (int i = 0; i < ParkingHouse.PHouse.Count; i++)
-            {
-                if (FindVehicle(plateNumber))
-                {
-                    //var vehicle = ParkedVehicles.FirstOrDefault(o => o.PlateNumber == plateNumber);
-                    var vehicle = ReturnObjectVehicle(plateNumber);
-                    check = ParkedVehicles.Remove(vehicle);
-                    AvailableSize += vehicle.Size;
-                    break;
-                }
-            }
+            check = ParkedVehicles.Remove(vehicle);
+            AvailableSize += vehicle.Size;
             return check;
         }
 
         public Vehicle ReturnObjectVehicle(string plateNumber)
         {
-            return ParkedVehicles.FirstOrDefault(o => o.PlateNumber == plateNumber);  // kollar om det finns något objekt med detta regnr. Retunerar hela objektet eller null 
+            return ParkedVehicles.FirstOrDefault(o => o.PlateNumber == plateNumber);  // kollar om det finns något objekt med detta regnr. Retunerar hela objektet eller null
         }
 
         public int FindSpot(string plateNumber)
@@ -136,7 +94,7 @@ namespace PragueParking2._0
                 ParkingHouse.PHouse.FirstOrDefault(i => i.Spot == vehicle.Spot);        // hittar objektplatsen men problem att printa fram den
                 return vehicle.Spot;
             }
-            return 0;       // 0 är standard värde på spot. Alltså att den inte finns.
+            return -1;       // 0 är standard värde på spot. Alltså att den inte finns.
         }
 
         public bool MoveVehicle(string plateNumber)
@@ -162,7 +120,29 @@ namespace PragueParking2._0
         }
 
     }
+    /*
+     *             //for (int i = 0; i < ParkingHouse.PHouse.Count; i++)
+            //{
+            //    if (Spot == i)
+            //    {
+            //        ParkedVehicles.Insert(spot, vehicle);
+            //        //ParkingHouse.(spot, vehicle);
+            //        //AvailableSize -= vehicle.Size;
 
+            //        AvailableSize -= vehicle.Size;
+            //        vehicle.Spot = Spot;
+            //        Vehicle.SaveVehicleToFile(vehicle, spot);
+            //        return true;
+            //    }
+            //}
+            //public int FindVehicle(string plateNumber)
+        //{
+        //    int index = -1;
+        //    return index = ParkedVehicles.FindIndex(index => index.PlateNumber == plateNumber);
+        //}
+
+
+     */
 
 
 }

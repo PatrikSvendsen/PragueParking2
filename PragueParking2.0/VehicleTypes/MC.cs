@@ -8,7 +8,6 @@ class MC : Vehicle
         string type = "MC";
         this.Price = VehiclePriceList.GetPrice(type);
         this.Size = 2;
-
     }
     public void CarParked()
     {
