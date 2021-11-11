@@ -5,10 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Spectre.Console;
-using PragueParking2._0;
-using System.Globalization;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+
 
 /**Uppdaterat program för Prague Parking. 
  * Data skall sparas så att det inte försvinner om programmet stängs av.
@@ -57,12 +54,15 @@ namespace PragueParking2._0
 {
     class Program
     {
-        public static ParkingHouse pHouseList = new();
+        //public static ParkingHouse pHouseList = new();
 
         public static void Main(string[] args)
         {
-            //ParkingHouse.InitializeParkedVehiclesList<Vehicle>();   // Läser in sparad fil med parkerade bilar
-            VehiclePriceList.InitiateParkingValues();
+
+            DataConfig.InitiateData.SetValuesFromConfig();
+
+            ParkingHouse pHouseList = new();
+
             //DataConfig.Config.InitiateData();
 
             var menuChoice = "";
@@ -218,7 +218,7 @@ namespace PragueParking2._0
                         {
                             bool priceCheck;
                             int price;
-                            priceCheck = ParkingHouse.CalculatePriceOnCheckOut(vehicle.Price, vehicle.TimeParked, out price);
+                            priceCheck = ParkingHouse.CalculatePriceOnCheckOut(vehicle.Price, vehicle.timeParked, out price);
                             check = ParkingHouse.RemoveVehicle(vehicle);
                             if (check == true)
                             {
@@ -234,22 +234,19 @@ namespace PragueParking2._0
                         {
                             string spot;
                             AskForNewSpot(out spot);
-                            //check = ValidateSpotInput(spot);
-                            int spotInt = IsSpotOk(spot, out check);
-
-                            if (check == true)
+                            int spotInt = IsSpotOk(spot, out check); 
+                            if (ParkingHouse.IsSpotEmpty(vehicle, spotInt))
                             {
-                                if (ParkingHouse.ReParkVehicle(vehicle, spotInt))
+                                check = ParkingHouse.RemoveVehicle(vehicle);
+                                if (check == true)
                                 {
+                                    ParkingHouse.ReParkVehicle(vehicle, spotInt); 
                                     Console.WriteLine("Vehicle can now be moved.");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("This spot is taken.");
                                 }
                             }
                             else
                             {
+                                Console.WriteLine("This spot is taken.");
                             }
                             Console.ReadKey();
                         }
@@ -316,6 +313,8 @@ namespace PragueParking2._0
                             break;
                     }
                 }
+                DataConfig.InitiateData.SaveVehicleToFile();
+                Console.ReadKey();
             }
         }
 
@@ -337,13 +336,14 @@ namespace PragueParking2._0
             bool check = false;
             if (type == "Car")
             {
-                check = pHouseList.ParkVehicle(new Car(vehiclePlate));
+                check = ParkingHouse.ParkVehicle(new Car(vehiclePlate));
             }
             else if (type == "MC")
             {
-                check = pHouseList.ParkVehicle(new MC(vehiclePlate));
+                check = ParkingHouse.ParkVehicle(new MC(vehiclePlate));
             }
             return check;
+
         }
 
         public static string AskForVehiclePlate(out string plateNumber)
@@ -358,6 +358,7 @@ namespace PragueParking2._0
             Console.WriteLine("Please write a new spot: ");
             return spot = Console.ReadLine();
         }
+
         public static bool ValidateVehiclePlateInput(string vehiclePlate)
         {
             bool regCheck;

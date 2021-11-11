@@ -1,14 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using PragueParking2._0.DataConfig;
 
 namespace PragueParking2._0
 {
     public class ParkingSpot
     {
+        public List<Vehicle> ParkedVehicles = new(); 
+        internal int Spot { get; set; }
+        private int Size { get; set; }
+        private int AvailableSize { get; set; }
+
         public ParkingSpot(int spotSize, int spot)
         {
             Spot = spot;
-            Size = spotSize;
             AvailableSize = spotSize;
         }
         public ParkingSpot(int spot, Vehicle vehicle)
@@ -16,16 +21,9 @@ namespace PragueParking2._0
             Spot = spot;
         }
 
-        internal int Spot { get; set; }
-        private int Size { get; set; }
-
-        private int AvailableSize { get; set; }  // = parkingSpotSize = 4;
-
-        public List<Vehicle> ParkedVehicles = new();
-
         public override string ToString()
         {
-            return Spot.ToString(); // + ParkedVehicles.ToString();
+            return Spot.ToString();
         }
 
         internal bool ParkVehicleToSpot(Vehicle vehicle, int spot)
@@ -45,19 +43,33 @@ namespace PragueParking2._0
             return false;
         }
 
+        internal bool ParkVehicleFromList(Vehicle vehicle, int spot)
+        {
+            foreach (var item in ParkingHouse.PHouse)
+            {
+                if (item.Spot == spot +1)
+                {
+                    ParkedVehicles.Insert(spot, vehicle);
+                    AvailableSize -= vehicle.Size;
+                    vehicle.Spot = Spot;
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool CheckSpace(Vehicle vehicle)
         {
-            //for (int i = 0; i < ParkingHouse.PHouse.Count; i++)
-            //{
-            if (AvailableSize == 4 & vehicle.Size == 4)
+
+            if (AvailableSize == ConfigValues.ParkingSpotSize & vehicle.Size == ConfigValues.CarSize)
             {
                 return true;
             }
-            else if (AvailableSize == 4 || AvailableSize == 2 & vehicle.Size == 2)
+            else if (AvailableSize == ConfigValues.ParkingSpotSize || AvailableSize == ConfigValues.MCSize & vehicle.Size == ConfigValues.MCSize)
             {
                 return true;
             }
-            //}
+            
             return false;
         }
 
@@ -120,30 +132,5 @@ namespace PragueParking2._0
         }
 
     }
-    /*
-     *             //for (int i = 0; i < ParkingHouse.PHouse.Count; i++)
-            //{
-            //    if (Spot == i)
-            //    {
-            //        ParkedVehicles.Insert(spot, vehicle);
-            //        //ParkingHouse.(spot, vehicle);
-            //        //AvailableSize -= vehicle.Size;
-
-            //        AvailableSize -= vehicle.Size;
-            //        vehicle.Spot = Spot;
-            //        Vehicle.SaveVehicleToFile(vehicle, spot);
-            //        return true;
-            //    }
-            //}
-            //public int FindVehicle(string plateNumber)
-        //{
-        //    int index = -1;
-        //    return index = ParkedVehicles.FindIndex(index => index.PlateNumber == plateNumber);
-        //}
-
-
-     */
-
-
 }
 
