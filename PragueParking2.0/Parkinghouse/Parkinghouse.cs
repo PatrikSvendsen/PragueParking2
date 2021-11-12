@@ -6,22 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using PragueParking2._0.DataConfig;
 
 namespace PragueParking2._0
 {
-
     /// <summary>
     /// A class to handle parkingspots and creating list of parkingspots.
     /// </summary>
-    /// 
 
     public class ParkingHouse
     {
-        internal static List<ParkingSpot> PHouse = new();
+        public static List<ParkingSpot> PHouse = new();
+
         private int ParkingSpotSize = ConfigValues.ParkingSpotSize;
         private int PHouseSize { get; } = ConfigValues.ParkingHouseSize;
-
 
         /// <summary>
         /// Main constructor for ParkingHouse, creates a list of parkingspots.
@@ -34,21 +33,8 @@ namespace PragueParking2._0
                 {
                     PHouse.Add(new ParkingSpot(ParkingSpotSize, i));
                 }
-                foreach (var item in PHouse)
-                {
-                    Console.WriteLine(item);
-                }
-
-                // läs in sparad data här, från dataConfig class med JSON.
-                DataConfig.InitiateData.LoadVehicleFromFile();
-
-                foreach (var item in PHouse)
-                {
-                    Console.WriteLine(item);
-                }
-                Console.ReadKey();
+                LoadVehicleFromFile();
             }
-
             catch (Exception e)
             {
                 Console.WriteLine("Something went wrong, Line 49", e);
@@ -58,17 +44,40 @@ namespace PragueParking2._0
         {
             return PHouse.ToString();
         }
-        
+
         //public override string ToString()d
         //{
         //    return type + ", " + price;
         //}
-
-
-        public static bool IsSpotEmpty(Vehicle vehicle, int i)          //TODO: Behöver göras om så att den kollar om enbart SPOT är ledig eller inte, ska inte kontrollera storlek etc.
+        /// <summary>
+        /// Method to check type of vehicle that needs to be created.
+        /// </summary>
+        /// <param name="vehiclePlate"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public bool AddVehicleToList(string vehiclePlate, string type)
+        {
+            bool check = false;
+            if (type == "Car")
+            {
+                check = ParkVehicle(new Car(vehiclePlate));
+            }
+            else if (type == "MC")
+            {
+                check = ParkVehicle(new MC(vehiclePlate));
+            }
+            return check;
+        }
+        /// <summary>
+        /// Method to check if spot is empty. 
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        public bool IsSpotEmpty(Vehicle vehicle, int i)
         {
             bool isSpotEmpty = false;
-            
+
             foreach (var spot in PHouse)
             {
                 if (spot.Spot == i)
@@ -79,10 +88,16 @@ namespace PragueParking2._0
             }
             return isSpotEmpty;
         }
-        public static bool ReParkVehicle(Vehicle vehicle, int i)
+        /// <summary>
+        /// Method used to repark a vehicle - used in both move and when loading vehicles from JSON file.
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        public bool ReParkVehicle(Vehicle vehicle, int i)
         {
             bool check;
-            check = IsSpotEmpty(vehicle, i);    
+            check = IsSpotEmpty(vehicle, i);
 
             if (check == true)
             {
@@ -94,10 +109,14 @@ namespace PragueParking2._0
             }
             return false;
         }
-
-        public static bool ParkVehicle(Vehicle vehicle)  
+        /// <summary>
+        /// Method to park a new vehicle.
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <returns></returns>
+        public bool ParkVehicle(Vehicle vehicle)
         {
-            for (int i = 0; i <= PHouse.Count; i++)
+            for (int i = 0; i < PHouse.Count; i++)
             {
                 bool isSpotEmpty = PHouse[i].CheckSpace(vehicle);
 
@@ -106,7 +125,6 @@ namespace PragueParking2._0
                     bool check = PHouse[i].ParkVehicleToSpot(vehicle, i);
                     if (check == true)
                     {
-                        
                         return check;
                     }
                     else
@@ -117,7 +135,12 @@ namespace PragueParking2._0
             }
             return false;
         }
-
+        /// <summary>
+        /// Method to check if platenumber alread exist, if it deos it returns the obj.
+        /// </summary>
+        /// <param name="plateNumber"></param>
+        /// <param name="vehicle"></param>
+        /// <returns></returns>
         public static bool CheckIfExists(string plateNumber, out Vehicle vehicle)
         {
             bool check = false;
@@ -132,8 +155,12 @@ namespace PragueParking2._0
             vehicle = null;
             return check;
         }
-
-        public static bool RemoveVehicle(Vehicle vehicle)
+        /// <summary>
+        /// Method to remove a specific obj.
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <returns></returns>
+        public bool RemoveVehicle(Vehicle vehicle)
         {
             bool check = false;
 
@@ -147,8 +174,12 @@ namespace PragueParking2._0
             }
             return check;
         }
-
-        public static int FindSpot(string plateNumber)
+        /// <summary>
+        /// Method to find the specific spot from input.
+        /// </summary>
+        /// <param name="plateNumber"></param>
+        /// <returns></returns>
+        public int FindSpot(string plateNumber)
         {
             int spot = -1;
             foreach (var item in PHouse)
@@ -161,7 +192,13 @@ namespace PragueParking2._0
             }
             return spot;
         }
-
+        /// <summary>
+        /// Method to calculate price on check-out.
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="parkedTime"></param>
+        /// <param name="parkedPrice"></param>
+        /// <returns></returns>
         public static bool CalculatePriceOnCheckOut(int price, DateTime parkedTime, out int parkedPrice)
         {
             var timeNow = DateTime.Now.AddMinutes(-10);
@@ -174,7 +211,83 @@ namespace PragueParking2._0
             Console.WriteLine(timeDiff);
             return false;
         }
-        
+        /// <summary>
+        /// Method to load saved parked vehicles from a JSON file.
+        /// </summary>
+        public void LoadVehicleFromFile()
+        {
+            string filePath = @"../../../DataConfig/parkedVehicle.json";
+            string convertJson = File.ReadAllText(filePath);
+            List<Vehicle> vehicles = JsonConvert.DeserializeObject<List<Vehicle>>(convertJson).ToList();
+
+            foreach (Vehicle vehicle in vehicles)
+            {
+                if (vehicle.Size == 4)
+                {
+                    ReParkVehicle(new Car(vehicle.PlateNumber, vehicle.Price, vehicle.Spot, vehicle.timeParked), vehicle.Spot); // läser in och lägger fordon på rätt parkeringsplats.
+                }
+                else if (vehicle.Size == 2)
+                {
+                    ReParkVehicle(new MC(vehicle.PlateNumber, vehicle.Price, vehicle.Spot, vehicle.timeParked), vehicle.Spot);
+                }
+            }
+            vehicles.Clear();
+        }
+        /// <summary>
+        /// Method to initiate config values from a JSON file.
+        /// </summary>
+        public static void SetValuesFromConfig()
+        {
+            string filePath = @"../../../DataConfig/ConfigValues.json";
+            string jsonConfig = File.ReadAllText(filePath);
+            JsonConvert.DeserializeObject<ConfigValues>(jsonConfig);
+        }
+        /// <summary>
+        /// Method to save parkedvehiclelist to a JSON file.
+        /// </summary>
+        public static void SaveVehicleToFile()                   // finns inte inlagd någonstans. Behöver kontrolleras.
+        {
+            List<Vehicle> parkedVehiclesList = new List<Vehicle>();
+            foreach (var vehicle in ParkingHouse.PHouse)
+            {
+                foreach (var item in vehicle.ParkedVehicles)
+                {
+                    parkedVehiclesList.Add(item);
+                }
+            }
+            string filepath = @"../../../dataconfig/parkedvehicle.json";
+            string vehicles = JsonConvert.SerializeObject(parkedVehiclesList, Formatting.Indented);
+            File.WriteAllText(filepath, vehicles);
+        }
+
+        //public void SaveVehicleToFile()                   // finns inte inlagd någonstans. Behöver kontrolleras.
+        //{
+        //    string filepath = @"../../../dataconfig/parkedvehicle.json";
+        //    string vehicles = JsonConvert.SerializeObject(parkingTest.ParkedVehicles, Formatting.Indented);
+        //    File.WriteAllText(filepath, vehicles);
+        //}
+
+        //public static void SaveVehicleToFile(Vehicle vehicle) // finns inte inlagd någonstans. Behöver kontrolleras.
+        //{
+        //    if (vehicle != null)
+        //    {
+        //        string filePath = @"../../../dataconfig/parkedvehicle.json";
+        //        string convertJson = File.ReadAllText(filePath);
+        //        List<Vehicle> vehicles = JsonConvert.DeserializeObject<List<Vehicle>>(convertJson).ToList();
+        //        vehicles.Add(vehicle);
+        //        string parkedvehicles = JsonConvert.SerializeObject(vehicles, Formatting.Indented);
+        //        File.WriteAllText(filePath, parkedvehicles);
+        //    }
+        //    else
+        //    {
+        //        string filePath = @"../../../dataconfig/parkedvehicle.json";
+        //        string convertJson = File.ReadAllText(filePath);
+        //        List<Vehicle> vehicles = JsonConvert.DeserializeObject<List<Vehicle>>(convertJson).ToList();
+        //        string parkedvehicles = JsonConvert.SerializeObject(vehicles, Formatting.Indented);
+        //        File.WriteAllText(filePath, parkedvehicles);
+        //    }
+        //}
+
 
         //public void RunList()
         //{

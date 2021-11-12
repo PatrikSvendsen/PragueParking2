@@ -1,12 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 using PragueParking2._0.DataConfig;
 
 namespace PragueParking2._0
 {
     public class ParkingSpot
     {
-        public List<Vehicle> ParkedVehicles = new(); 
+        //public List<Vehicle> ParkedVehicles = new(); 
+
+        public List<Vehicle> ParkedVehicles { get; set; } = new List<Vehicle>();
+
         internal int Spot { get; set; }
         private int Size { get; set; }
         private int AvailableSize { get; set; }
@@ -37,30 +42,12 @@ namespace PragueParking2._0
                     vehicle.Spot = Spot;
                     return true;
                 }
-            }
-
-            //return vehicles.Contains(vehicle);   
-            return false;
-        }
-
-        internal bool ParkVehicleFromList(Vehicle vehicle, int spot)
-        {
-            foreach (var item in ParkingHouse.PHouse)
-            {
-                if (item.Spot == spot +1)
-                {
-                    ParkedVehicles.Insert(spot, vehicle);
-                    AvailableSize -= vehicle.Size;
-                    vehicle.Spot = Spot;
-                    return true;
-                }
-            }
+            } 
             return false;
         }
 
         public bool CheckSpace(Vehicle vehicle)
         {
-
             if (AvailableSize == ConfigValues.ParkingSpotSize & vehicle.Size == ConfigValues.CarSize)
             {
                 return true;
@@ -85,11 +72,13 @@ namespace PragueParking2._0
             }
             return check;
         }
+
         public bool RemoveVehicle(Vehicle vehicle)
         {
             bool check = false;
             check = ParkedVehicles.Remove(vehicle);
             AvailableSize += vehicle.Size;
+            vehicle = null;
             return check;
         }
 
@@ -130,7 +119,7 @@ namespace PragueParking2._0
             }
             return check;
         }
-
+        
     }
 }
 

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PragueParking2._0;
-
+﻿using PragueParking2._0.DataConfig;
+using System;
 
 public class Vehicle
 {
@@ -19,7 +13,6 @@ public class Vehicle
         timeParked = DateTime.Now;
         this.Spot = 0;
     }
-
     public string PlateNumber { get; set; }
     public int Size { get; set; }
     public int Price { get; set; }

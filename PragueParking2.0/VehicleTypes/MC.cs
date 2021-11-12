@@ -1,5 +1,5 @@
 ﻿using System;
-using PragueParking2._0;
+
 using PragueParking2._0.DataConfig;
 
 class MC : Vehicle

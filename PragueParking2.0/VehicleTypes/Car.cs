@@ -1,5 +1,4 @@
 ﻿using System;
-using PragueParking2._0;
 using PragueParking2._0.DataConfig;
 
 class Car : Vehicle
@@ -23,7 +22,6 @@ class Car : Vehicle
         this.Price = ConfigValues.CarPricePerHour;
         this.Size = ConfigValues.CarSize;
     }
-
     public override void PrintVehicleParked()
     {
         Console.WriteLine("Car has now been parked at <input spot here>");
