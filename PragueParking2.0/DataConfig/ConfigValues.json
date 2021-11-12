@@ -4,5 +4,6 @@
   "CarPricePerHour": 20,
   "MCPricePerHour": 10,
   "ParkingHouseSize": 5,
-  "ParkingSpotSize": 4
+  "ParkingSpotSize": 4,
+  "FreeParkingTime": 10
 }

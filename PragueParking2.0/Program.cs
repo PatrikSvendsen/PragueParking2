@@ -222,13 +222,14 @@ namespace PragueParking2._0
                         }
                         else if (subMenuChoice == "Collect vehicle")
                         {
-                            bool priceCheck;
-                            int price;
-                            priceCheck = ParkingHouse.CalculatePriceOnCheckOut(vehicle.Price, vehicle.timeParked, out price);
+                            TimeSpan timeParked;
+                            parkingHouse.CalculateTimeParked(vehicle, out timeParked);
+                            int priceToPay = parkingHouse.CalculatePriceOnCheckOut(timeParked, vehicle.Price);
+
                             check = parkingHouse.RemoveVehicle(vehicle);
                             if (check == true)
                             {
-                                Console.WriteLine("Vehicle removed");
+                                Console.WriteLine("Vehicle removed. Customer needs to pay: {0} CSK", priceToPay);
                             }
                             else
                             {
@@ -447,10 +448,10 @@ namespace PragueParking2._0
             vehicle = null;
             return null;
         }
-        private static int ConvertStringToInt(string spot)
+        private static int ConvertStringToInt(string input)
         {
-            int intSpot;
-            return intSpot = Int32.Parse(spot);
+            int intInput;
+            return intInput = Int32.Parse(input);
         }
 
 

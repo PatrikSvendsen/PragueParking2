@@ -7,6 +7,13 @@
     "timeParked": "2021-11-12T20:42:26.2669679+01:00"
   },
   {
+    "PlateNumber": "ABC123",
+    "Size": 2,
+    "Price": 10,
+    "Spot": 1,
+    "timeParked": "2021-11-12T23:55:16.9869045+01:00"
+  },
+  {
     "PlateNumber": "JKL123",
     "Size": 4,
     "Price": 20,
@@ -18,20 +25,6 @@
     "Size": 2,
     "Price": 10,
     "Spot": 3,
-    "timeParked": "2021-11-11T15:03:16.486994+01:00"
-  },
-  {
-    "PlateNumber": "KJL99",
-    "Size": 4,
-    "Price": 20,
-    "Spot": 4,
-    "timeParked": "2021-11-12T20:49:26.5837391+01:00"
-  },
-  {
-    "PlateNumber": "MAF450",
-    "Size": 4,
-    "Price": 20,
-    "Spot": 5,
-    "timeParked": "2021-11-11T15:02:16.9346886+01:00"
+    "timeParked": "2021-11-12T23:30:16.486994+01:00"
   }
 ]

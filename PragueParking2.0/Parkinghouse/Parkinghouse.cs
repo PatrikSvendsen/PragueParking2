@@ -45,10 +45,6 @@ namespace PragueParking2._0
             return PHouse.ToString();
         }
 
-        //public override string ToString()d
-        //{
-        //    return type + ", " + price;
-        //}
         /// <summary>
         /// Method to check type of vehicle that needs to be created.
         /// </summary>
@@ -68,6 +64,7 @@ namespace PragueParking2._0
             }
             return check;
         }
+
         /// <summary>
         /// Method to check if spot is empty. 
         /// </summary>
@@ -88,6 +85,7 @@ namespace PragueParking2._0
             }
             return isSpotEmpty;
         }
+
         /// <summary>
         /// Method used to repark a vehicle - used in both move and when loading vehicles from JSON file.
         /// </summary>
@@ -109,6 +107,7 @@ namespace PragueParking2._0
             }
             return false;
         }
+
         /// <summary>
         /// Method to park a new vehicle.
         /// </summary>
@@ -135,6 +134,7 @@ namespace PragueParking2._0
             }
             return false;
         }
+
         /// <summary>
         /// Method to check if platenumber alread exist, if it deos it returns the obj.
         /// </summary>
@@ -155,6 +155,7 @@ namespace PragueParking2._0
             vehicle = null;
             return check;
         }
+
         /// <summary>
         /// Method to remove a specific obj.
         /// </summary>
@@ -174,6 +175,7 @@ namespace PragueParking2._0
             }
             return check;
         }
+
         /// <summary>
         /// Method to find the specific spot from input.
         /// </summary>
@@ -192,25 +194,44 @@ namespace PragueParking2._0
             }
             return spot;
         }
+
         /// <summary>
-        /// Method to calculate price on check-out.
+        /// Method to check time diff between current time and parked time.
         /// </summary>
         /// <param name="price"></param>
         /// <param name="parkedTime"></param>
         /// <param name="parkedPrice"></param>
         /// <returns></returns>
-        public static bool CalculatePriceOnCheckOut(int price, DateTime parkedTime, out int parkedPrice)
+        public bool CalculateTimeParked(Vehicle vehicle, out TimeSpan timeDiff)
         {
-            var timeNow = DateTime.Now.AddMinutes(-10);
-            TimeSpan timeDiff = timeNow - parkedTime;
-            //var res = String.Format("{0}:{1}", timeDiff.Hours, timeDiff.Minutes);
-            // https://jamesmccaffrey.wordpress.com/2014/02/04/converting-a-date-to-an-integer-in-c/
-            // Bör göra så att om timediff är - så ska ingen kostand tas ut utan skickas vidare/ut ur loopen direkt.
-            // är den inte negativ ska det tas ut en kostnad, kolla ovan länk.
-            parkedPrice = 0;
-            Console.WriteLine(timeDiff);
-            return false;
+            var timeNow = DateTime.Now;
+            var timeParkedMinusFreeMin = vehicle.timeParked;
+            timeDiff = timeNow - timeParkedMinusFreeMin;
+            Console.WriteLine("Parked: " + timeDiff.Hours + "hours " + "and" + " " + timeDiff.Minutes + "minutes.");
+            return true;
         }
+
+        /// <summary>
+        /// Method to calculate price on checkout.
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public int CalculatePriceOnCheckOut(TimeSpan time, int price)
+        {
+            int priceToPay = 0;
+
+            if (time.Hours != 0)
+            {
+                return priceToPay = time.Hours * price + price;
+            }
+            else if (time.Minutes > ConfigValues.FreeParkingTime)
+            {
+                return priceToPay += price;
+            }
+
+            return 0;
+        }
+
         /// <summary>
         /// Method to load saved parked vehicles from a JSON file.
         /// </summary>
@@ -233,6 +254,7 @@ namespace PragueParking2._0
             }
             vehicles.Clear();
         }
+
         /// <summary>
         /// Method to initiate config values from a JSON file.
         /// </summary>
@@ -242,6 +264,7 @@ namespace PragueParking2._0
             string jsonConfig = File.ReadAllText(filePath);
             JsonConvert.DeserializeObject<ConfigValues>(jsonConfig);
         }
+
         /// <summary>
         /// Method to save parkedvehiclelist to a JSON file.
         /// </summary>
@@ -259,54 +282,5 @@ namespace PragueParking2._0
             string vehicles = JsonConvert.SerializeObject(parkedVehiclesList, Formatting.Indented);
             File.WriteAllText(filepath, vehicles);
         }
-
-        //public void SaveVehicleToFile()                   // finns inte inlagd någonstans. Behöver kontrolleras.
-        //{
-        //    string filepath = @"../../../dataconfig/parkedvehicle.json";
-        //    string vehicles = JsonConvert.SerializeObject(parkingTest.ParkedVehicles, Formatting.Indented);
-        //    File.WriteAllText(filepath, vehicles);
-        //}
-
-        //public static void SaveVehicleToFile(Vehicle vehicle) // finns inte inlagd någonstans. Behöver kontrolleras.
-        //{
-        //    if (vehicle != null)
-        //    {
-        //        string filePath = @"../../../dataconfig/parkedvehicle.json";
-        //        string convertJson = File.ReadAllText(filePath);
-        //        List<Vehicle> vehicles = JsonConvert.DeserializeObject<List<Vehicle>>(convertJson).ToList();
-        //        vehicles.Add(vehicle);
-        //        string parkedvehicles = JsonConvert.SerializeObject(vehicles, Formatting.Indented);
-        //        File.WriteAllText(filePath, parkedvehicles);
-        //    }
-        //    else
-        //    {
-        //        string filePath = @"../../../dataconfig/parkedvehicle.json";
-        //        string convertJson = File.ReadAllText(filePath);
-        //        List<Vehicle> vehicles = JsonConvert.DeserializeObject<List<Vehicle>>(convertJson).ToList();
-        //        string parkedvehicles = JsonConvert.SerializeObject(vehicles, Formatting.Indented);
-        //        File.WriteAllText(filePath, parkedvehicles);
-        //    }
-        //}
-
-
-        //public void RunList()
-        //{
-
-        //    List<string> currentParkedVehicles = new List<string>();
-        //    currentParkedVehicles = File.ReadAllLines(filePath).ToList();
-        //    foreach (string vehicle in currentParkedVehicles)
-        //    {
-        //        Vehicle v;
-        //        string[] items = vehicle.Split(new char[] { ',', ' ', '(', ')' }, StringSplitOptions.RemoveEmptyEntries); //TODO: lägg till på datetime så att den innehåller : eller -
-        //        //Vehicle v = new Vehicle(items[0], items[1], int.Parse(items[2])); //DateTime.ParseExact(items[3], "dd/MM/yyyy-HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None));
-        //        if (items.Contains("Car"))
-        //        {
-        //            //ParkingSpot.ParkedVehicles.Add(new Car(items[1], int.Parse(items[2]), DateTime.ParseExact(items[3], "dd/MM/yyyy-HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None)));
-        //            //v = new Car(items[2], int.Parse(items[3]), DateTime.ParseExact(items[4], "dd/MM/yyyy-HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None));
-        //            //ParkingSpot.ParkedVehicles.Add(v);
-        //            PHouse[int.Parse(items[0])].ParkVehicleToSpot(v, int.Parse(items[0]));
-        //        }
-        //    }
-        //}
     }
 }

@@ -23,5 +23,8 @@ namespace PragueParking2._0.DataConfig
 
         [JsonProperty("ParkingSpotSize")]
         public static int ParkingSpotSize { get; set; }
+
+        [JsonProperty("FreeParkingTime")]
+        public static int FreeParkingTime { get; set; }
     }
 }
