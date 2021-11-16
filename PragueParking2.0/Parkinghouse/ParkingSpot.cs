@@ -8,8 +8,6 @@ namespace PragueParking2._0
 {
     public class ParkingSpot
     {
-        //public List<Vehicle> ParkedVehicles = new(); 
-
         public List<Vehicle> ParkedVehicles { get; set; } = new List<Vehicle>();
 
         internal int Spot { get; set; }
@@ -24,6 +22,10 @@ namespace PragueParking2._0
         public ParkingSpot(int spot, Vehicle vehicle)
         {
             Spot = spot;
+        }
+        public ParkingSpot()
+        {
+            
         }
 
         public override string ToString()

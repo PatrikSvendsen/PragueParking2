@@ -14,7 +14,7 @@ class MC : Vehicle
         PlateNumber = plateNumber;
         Price = price;
         this.Size = ConfigValues.MCSize;
-        this.timeParked = timeParked;
+        this.TimeParked = timeParked;
         Spot = spot;
     }
 

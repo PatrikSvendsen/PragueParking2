@@ -1,30 +1,72 @@
 [
   {
-    "PlateNumber": "LKJ123",
+    "PlateNumber": "GHGHA19812",
     "Size": 2,
     "Price": 10,
     "Spot": 1,
-    "timeParked": "2021-11-12T20:42:26.2669679+01:00"
+    "TimeParked": "2021-11-12T20:42:26.2669679+01:00"
   },
   {
-    "PlateNumber": "ABC123",
+    "PlateNumber": "GHGHA19813",
     "Size": 2,
     "Price": 10,
     "Spot": 1,
-    "timeParked": "2021-11-12T23:55:16.9869045+01:00"
+    "TimeParked": "2021-11-12T20:42:26.2669679+01:00"
   },
   {
-    "PlateNumber": "JKL123",
+    "PlateNumber": "028143",
     "Size": 4,
     "Price": 20,
-    "Spot": 2,
-    "timeParked": "2021-11-12T20:41:02.4461866+01:00"
+    "Spot": 3,
+    "TimeParked": "2021-11-12T20:42:26.2669679+01:00"
   },
   {
     "PlateNumber": "AAA111",
     "Size": 2,
     "Price": 10,
-    "Spot": 3,
-    "timeParked": "2021-11-12T23:30:16.486994+01:00"
+    "Spot": 26,
+    "TimeParked": "2021-11-12T23:30:16.486994+01:00"
+  },
+  {
+    "PlateNumber": "ABCDE12345",
+    "Size": 4,
+    "Price": 20,
+    "Spot": 5,
+    "TimeParked": "2021-11-12T20:41:02.4461866+01:00"
+  },
+  {
+    "PlateNumber": "BBB111",
+    "Size": 2,
+    "Price": 10,
+    "Spot": 26,
+    "TimeParked": "2021-11-15T14:17:23.7470431+01:00"
+  },
+  {
+    "PlateNumber": "DSA129",
+    "Size": 4,
+    "Price": 20,
+    "Spot": 27,
+    "TimeParked": "2021-11-13T00:09:00.8834695+01:00"
+  },
+  {
+    "PlateNumber": "DSA4489G",
+    "Size": 4,
+    "Price": 20,
+    "Spot": 16,
+    "TimeParked": "2021-11-14T00:09:00.8834695+01:00"
+  },
+  {
+    "PlateNumber": "DSA4123G",
+    "Size": 2,
+    "Price": 10,
+    "Spot": 11,
+    "TimeParked": "2021-11-14T12:49:00.8834695+01:00"
+  },
+  {
+    "PlateNumber": "D12315G",
+    "Size": 2,
+    "Price": 10,
+    "Spot": 11,
+    "TimeParked": "2021-11-14T00:19:23.8834695+01:00"
   }
 ]

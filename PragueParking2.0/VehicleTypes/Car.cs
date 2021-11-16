@@ -7,13 +7,13 @@ class Car : Vehicle
     /// Tar emot regnr och sätter sedan reg, storlek, pris och tid för ankomst.
     /// </summary>
     /// <param name="plateNumber"></param>
-   
+
     public Car(string plateNumber, int price, int spot, DateTime timeParked) : base(plateNumber)
     {
         PlateNumber = plateNumber;
         Price = price;
         this.Size = ConfigValues.CarSize;
-        this.timeParked = timeParked;
+        this.TimeParked = timeParked;
         Spot = spot;
     }
 
@@ -22,6 +22,7 @@ class Car : Vehicle
         this.Price = ConfigValues.CarPricePerHour;
         this.Size = ConfigValues.CarSize;
     }
+
     public override void PrintVehicleParked()
     {
         Console.WriteLine("Car has now been parked at <input spot here>");
