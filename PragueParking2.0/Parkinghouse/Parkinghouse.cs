@@ -371,7 +371,10 @@ namespace PragueParking2._0
             }
             //Console.WriteLine("\nBelow is the parking lot with current parked vehicles.\n");
             //int column = 20;
-            var rule = new Rule();
+            //var rule1 = new Rule();
+            //rule1.Style = Style.Parse("red dim");
+            var rule2 = new Rule();
+            rule2.Style = Style.Parse("blue");
             int rows = 1;
             Console.Clear();
 
@@ -398,19 +401,20 @@ namespace PragueParking2._0
                 {
                     if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                     {
-                        table5.Columns[i].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                        //table5.Columns[i].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                        table5.Columns[i].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                         rows++;
                     }
                     else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                     {
 
-                        table5.Columns[i].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                        table5.Columns[i].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
 
                         rows++;
                     }
                     else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                     {
-                        table5.Columns[i].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                        table5.Columns[i].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                     }
                 }
             }
@@ -480,7 +484,7 @@ namespace PragueParking2._0
             //table6.Border = TableBorder.Simple;
             AnsiConsole.Write(table5);
             AnsiConsole.Write(table6);
-            AnsiConsole.Write(rule);
+            AnsiConsole.Write(rule2);
 
             #endregion
             //-------------------------------------------------------------------------------------------------
@@ -511,17 +515,17 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table7.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table7.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table7.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table7.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table7.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table7.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                         }
                     }
                     i++;
@@ -593,7 +597,7 @@ namespace PragueParking2._0
             //table8.Border = TableBorder.Simple;
             AnsiConsole.Write(table7);
             AnsiConsole.Write(table8);
-
+            AnsiConsole.Write(rule2);
             #endregion
             //-------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------
@@ -623,17 +627,17 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table9.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table9.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table9.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table9.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table9.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table9.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                         }
                     }
                     i++;
@@ -705,7 +709,7 @@ namespace PragueParking2._0
             table9.Border = TableBorder.Simple;
             AnsiConsole.Write(table9);
             AnsiConsole.Write(table10);
-
+            AnsiConsole.Write(rule2);
             #endregion
             //-------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------
@@ -734,17 +738,17 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table11.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table11.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table11.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table11.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table11.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table11.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                         }
                     }
                     i++;
@@ -815,7 +819,7 @@ namespace PragueParking2._0
             table11.Border = TableBorder.Simple;
             AnsiConsole.Write(table11);
             AnsiConsole.Write(table12);
-
+            AnsiConsole.Write(rule2);
             #endregion
             //-------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------
@@ -847,32 +851,32 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table13.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table13.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table13.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table13.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table13.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table13.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                         }
                     }
                     i++;
                 }
-            table13.InsertRow(0, 
-            PHouse[40].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[41].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[42].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[43].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[44].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[45].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[46].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[47].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[48].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[49].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"));
+            table13.InsertRow(0,
+            "Spot  " + PHouse[40].Spot + " | " + " " + PHouse[40].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[41].Spot + " | " + " " + PHouse[41].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[42].Spot + " | " + " " + PHouse[42].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[43].Spot + " | " + " " + PHouse[43].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[44].Spot + " | " + " " + PHouse[44].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[45].Spot + " | " + " " + PHouse[45].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[46].Spot + " | " + " " + PHouse[46].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[47].Spot + " | " + " " + PHouse[47].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[48].Spot + " | " + " " + PHouse[48].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[49].Spot + " | " + " " + PHouse[49].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"));
 
             rows = 1;
             var table14 = new Table();
@@ -895,36 +899,41 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table14.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table14.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table14.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table14.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table14.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table14.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table14.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table14.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table14.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                     }
                     i++;
                 }
-            table14.InsertRow(0, 
-            PHouse[40].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[41].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[42].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[43].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[44].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[45].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[46].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[47].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[48].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[49].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"));
+            //table14.InsertRow(0, 
+            //PHouse[40].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[41].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[42].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[43].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[44].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[45].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[46].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[47].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[48].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[49].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"));
+            table13.HideHeaders();
+            table13.Border = TableBorder.Simple;
             AnsiConsole.Write(table13);
             AnsiConsole.Write(table14);
-
+            AnsiConsole.Write(rule2);
             #endregion
             //-------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------
@@ -956,32 +965,32 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table15.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table15.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table15.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table15.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table15.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table15.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                         }
                     }
                     i++;
                 }
             table15.InsertRow(0,
-            PHouse[50].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[51].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[52].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[53].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[54].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[55].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[56].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[57].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[58].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[59].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"));
+            "Spot  " + PHouse[50].Spot + " | " + " " + PHouse[50].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[51].Spot + " | " + " " + PHouse[51].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[52].Spot + " | " + " " + PHouse[52].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[53].Spot + " | " + " " + PHouse[53].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[54].Spot + " | " + " " + PHouse[54].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[55].Spot + " | " + " " + PHouse[55].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[56].Spot + " | " + " " + PHouse[56].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[57].Spot + " | " + " " + PHouse[57].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[58].Spot + " | " + " " + PHouse[58].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[59].Spot + " | " + " " + PHouse[59].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"));
 
             rows = 1;
             var table16 = new Table();
@@ -1004,36 +1013,41 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table16.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table16.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table16.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table16.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table16.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table16.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table16.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table16.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table16.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                     }
                     i++;
                 }
-            table16.InsertRow(0,
-            PHouse[50].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[51].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[52].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[53].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[54].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[55].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[56].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[57].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[58].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[59].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"));
+            //table16.InsertRow(0,
+            //PHouse[50].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[51].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[52].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[53].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[54].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[55].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[56].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[57].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[58].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[59].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"));
+            table15.HideHeaders();
+            table15.Border = TableBorder.Simple;
             AnsiConsole.Write(table15);
             AnsiConsole.Write(table16);
-
+            AnsiConsole.Write(rule2);
             #endregion
             //-------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------
@@ -1065,32 +1079,32 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table17.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table17.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table17.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table17.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table17.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table17.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                         }
                     }
                     i++;
                 }
             table17.InsertRow(0,
-            PHouse[60].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[61].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[62].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[63].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[64].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[65].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[66].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[67].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[68].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[69].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"));
+            "Spot  " + PHouse[60].Spot + " | " + " " + PHouse[60].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[61].Spot + " | " + " " + PHouse[61].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[62].Spot + " | " + " " + PHouse[62].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[63].Spot + " | " + " " + PHouse[63].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[64].Spot + " | " + " " + PHouse[64].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[65].Spot + " | " + " " + PHouse[65].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[66].Spot + " | " + " " + PHouse[66].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[67].Spot + " | " + " " + PHouse[67].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[68].Spot + " | " + " " + PHouse[68].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[69].Spot + " | " + " " + PHouse[69].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"));
 
             rows = 1;
             var table18 = new Table();
@@ -1113,36 +1127,41 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table18.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table18.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table18.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table18.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table18.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table18.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table18.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table18.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table18.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                     }
                     i++;
                 }
-            table18.InsertRow(0,
-            PHouse[60].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[61].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[62].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[63].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[64].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[65].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[66].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[67].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[68].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[69].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"));
+            //table18.InsertRow(0,
+            //PHouse[60].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[61].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[62].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[63].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[64].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[65].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[66].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[67].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[68].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[69].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"));
+            table17.HideHeaders();
+            table17.Border = TableBorder.Simple;
             AnsiConsole.Write(table17);
             AnsiConsole.Write(table18);
-
+            AnsiConsole.Write(rule2);
             #endregion
             //-------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------
@@ -1174,32 +1193,32 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table19.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table19.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table19.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table19.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table19.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table19.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                         }
                     }
                     i++;
                 }
             table19.InsertRow(0,
-            PHouse[70].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[71].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[72].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[73].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[74].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[75].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[76].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[77].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[78].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[79].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"));
+            "Spot  " + PHouse[70].Spot + " | " + " " + PHouse[70].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[71].Spot + " | " + " " + PHouse[71].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[72].Spot + " | " + " " + PHouse[72].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[73].Spot + " | " + " " + PHouse[73].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[74].Spot + " | " + " " + PHouse[74].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[75].Spot + " | " + " " + PHouse[75].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[76].Spot + " | " + " " + PHouse[76].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[77].Spot + " | " + " " + PHouse[77].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[78].Spot + " | " + " " + PHouse[78].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[79].Spot + " | " + " " + PHouse[79].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"));
 
             rows = 1;
             var table20 = new Table();
@@ -1222,36 +1241,41 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table20.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table20.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table20.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table20.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table20.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table20.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table20.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table20.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table20.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                     }
                     i++;
                 }
-            table20.InsertRow(0,
-            PHouse[70].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[71].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[72].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[73].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[74].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[75].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[76].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[77].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[78].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[79].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"));
+            //table20.InsertRow(0,
+            //PHouse[70].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[71].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[72].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[73].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[74].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[75].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[76].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[77].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[78].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[79].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"));
+            table19.HideHeaders();
+            table19.Border = TableBorder.Simple;
             AnsiConsole.Write(table19);
             AnsiConsole.Write(table20);
-
+            AnsiConsole.Write(rule2);
             #endregion
             //-------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------
@@ -1284,32 +1308,32 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table21.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table21.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table21.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table21.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table21.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table21.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                         }
                     }
                     i++;
                 }
             table21.InsertRow(0,
-            PHouse[80].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[81].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[82].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[83].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[84].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[85].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[86].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[87].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[88].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[89].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"));
+            "Spot  " + PHouse[80].Spot + " | " + " " + PHouse[80].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[81].Spot + " | " + " " + PHouse[81].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[82].Spot + " | " + " " + PHouse[82].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[83].Spot + " | " + " " + PHouse[83].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[84].Spot + " | " + " " + PHouse[84].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[85].Spot + " | " + " " + PHouse[85].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[86].Spot + " | " + " " + PHouse[86].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[87].Spot + " | " + " " + PHouse[87].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[88].Spot + " | " + " " + PHouse[88].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[89].Spot + " | " + " " + PHouse[89].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"));
 
             rows = 1;
             var table22 = new Table();
@@ -1332,36 +1356,41 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table22.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table22.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table22.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table22.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table22.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table22.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table22.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table22.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table22.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                     }
                     i++;
                 }
-            table22.InsertRow(0,
-            PHouse[80].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[81].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[82].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[83].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[84].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[85].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[86].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[87].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[88].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[89].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"));
+            //table22.InsertRow(0,
+            //PHouse[80].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[81].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[82].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[83].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[84].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[85].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[86].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[87].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[88].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[89].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"));
+            table21.HideHeaders();
+            table21.Border = TableBorder.Simple;
             AnsiConsole.Write(table21);
             AnsiConsole.Write(table22);
-
+            AnsiConsole.Write(rule2);
             #endregion
             //-------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------
@@ -1393,32 +1422,32 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table23.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table23.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table23.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table23.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table23.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
+                            table23.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber + " | " + "     " + PHouse[i].ParkedVehicles[0].GetType().ToString());
                         }
                     }
                     i++;
                 }
             table23.InsertRow(0,
-            PHouse[90].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[91].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[92].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[93].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[94].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[95].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[96].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[97].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[98].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[99].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"));
+            "Spot  " + PHouse[90].Spot + " | " + " " + PHouse[90].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[91].Spot + " | " + " " + PHouse[91].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[92].Spot + " | " + " " + PHouse[92].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[93].Spot + " | " + " " + PHouse[93].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[94].Spot + " | " + " " + PHouse[94].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[95].Spot + " | " + " " + PHouse[95].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[96].Spot + " | " + " " + PHouse[96].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[97].Spot + " | " + " " + PHouse[97].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[98].Spot + " | " + " " + PHouse[98].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"),
+            "Spot  " + PHouse[99].Spot + " | " + " " + PHouse[99].ParkedVehicles[0].TimeParked.ToString("HH:mm - d/M"));
 
             rows = 1;
             var table24 = new Table();
@@ -1441,116 +1470,44 @@ namespace PragueParking2._0
                     {
                         if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
                         {
-                            table24.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table24.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table24.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
                         {
-                            table24.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table24.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table24.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                         else if (PHouse[i].ParkedVehicles[1].GetType().ToString() == "MC")
                         {
-                            table24.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            //table24.Columns[y].Header(PHouse[i].ParkedVehicles[1].PlateNumber);
+                            table24.Columns[y].Header(PHouse[i].ParkedVehicles[1].TimeParked.ToString("HH:mm | d/M") + "   " + PHouse[i].ParkedVehicles[1].PlateNumber);
                             rows++;
                         }
                     }
                     i++;
                 }
-            table24.InsertRow(0,
-            PHouse[90].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[91].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[92].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[93].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[94].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[95].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[96].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[97].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[98].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
-            PHouse[99].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"));
-            table23.Border = TableBorder.Double;
+            //table24.InsertRow(0,
+            //PHouse[90].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[91].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[92].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[93].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[94].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[95].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[96].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[97].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[98].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"),
+            //PHouse[99].ParkedVehicles[1].TimeParked.ToString("HH:mm - d/M"));
+            table23.HideHeaders();
+            table23.Border = TableBorder.Simple;
             AnsiConsole.Write(table23);
             AnsiConsole.Write(table24);
 
             #endregion
             //-------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------
-
-
-
-
-            //AnsiConsole.Write(table5);
-            //AnsiConsole.Write(table8);
-            //var table6 = new Table();
-            //table6.AddColumns("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-            //table6.HideHeaders();
-            //table6.Expand();
-            //rows = 1;
-            //for (int y = 10; y <= 20; i++)
-            //    for (int y = 0; y < 10; y++)
-            //    {
-            //        if (PHouse[i].ParkedVehicles.Count == 0)
-            //        {
-            //            table6.Columns[y].Footer("Empty spot");
-            //            AnsiConsole.Write(table6);
-            //            rows++;
-            //        }
-            //        else if (PHouse[i].ParkedVehicles.Count == 1)
-            //        {
-            //            if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
-            //            {
-            //                table6.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
-
-            //                AnsiConsole.Write(table6);
-            //                rows++;
-            //            }
-            //            else
-            //            {
-            //                table6.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
-            //                AnsiConsole.Write(table6);
-            //                rows++;
-            //            }
-            //        }
-
-            //        i++;
-            //        continue;
-            //    }
-            //var table7 = new Table();
-            //table7.AddColumns("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-            //table7.HideHeaders();
-            //table7.Expand();
-            //rows = 1;
-            //    for (int i = 20; i <= 30; i++)
-            //        for (int y = 0; y < 10; y++)
-            //        {
-            //            if (PHouse[i].ParkedVehicles.Count == 0)
-            //            {
-            //                table7.Columns[y].Footer("Empty spot");
-            //                rows++;
-            //            }
-            //            else if (PHouse[i].ParkedVehicles.Count == 1)
-            //            {
-            //                if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Car")
-            //                {
-            //                    table7.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
-            //                    rows++;
-            //                }
-            //                else
-            //                {
-            //                    table7.Columns[y].Footer(PHouse[i].ParkedVehicles[0].PlateNumber);
-            //                    rows++;
-            //                }
-            //            }
-            //            i++;
-            //            continue;
-            //        }
-            //    AnsiConsole.Write(table5);
-            //    AnsiConsole.Write(table6);
-            //    AnsiConsole.Write(table7);
-            //}
-
-
-
         }
     }
 }
