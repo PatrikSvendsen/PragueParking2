@@ -399,17 +399,6 @@ namespace PragueParking2._0
             vehicle = null;
             return null;
         }
-
-        /// <summary>
-        /// Method to convert from string to int - NOT IN USE! - REMOVE
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        private int ConvertStringToInt(string input)
-        {
-            int intInput;
-            return intInput = Int32.Parse(input);
-        }
     }
 }
 

@@ -170,25 +170,6 @@ namespace PragueParking2._0
         }
 
         /// <summary>
-        /// Method to find the specific spot from input.
-        /// </summary>
-        /// <param name="plateNumber"></param>
-        /// <returns></returns>
-        public int FindSpot(string plateNumber)
-        {
-            int spot = -1;
-            foreach (var item in PHouse)
-            {
-                spot = item.FindSpot(plateNumber);
-                if (spot > 0)
-                {
-                    return spot;
-                }
-            }
-            return spot;
-        }
-
-        /// <summary>
         /// Method to check time diff between current time and parked time.
         /// </summary>
         /// <param name="price"></param>

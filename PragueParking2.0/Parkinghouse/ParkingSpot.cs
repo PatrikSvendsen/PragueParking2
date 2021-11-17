@@ -130,34 +130,6 @@ namespace PragueParking2._0
             }
             return -1;       // 0 är standard värde på spot. Alltså att den inte finns.
         }
-
-        /// <summary>
-        /// Method to move a vehicle.
-        /// </summary>
-        /// <param name="plateNumber"></param>
-        /// <returns></returns>
-        public bool MoveVehicle(string plateNumber)
-        {
-            bool check = false;
-            int spot;
-
-            spot = FindSpot(plateNumber);
-
-            foreach (var item in ParkingHouse.PHouse)
-            {
-                if (item.Spot == 1)
-                {
-                    var vehicle = ReturnObjectVehicle(plateNumber);
-                    if (vehicle == null)
-                    {
-                        break;
-                    }
-                    vehicle.Spot = 2;
-                }
-            }
-            return check;
-        }
-        
     }
 }
 
