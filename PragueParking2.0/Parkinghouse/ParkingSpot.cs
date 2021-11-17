@@ -33,6 +33,12 @@ namespace PragueParking2._0
             return Spot.ToString();
         }
 
+        /// <summary>
+        /// Method to park the vehicle to an empty spot.
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <param name="spot"></param>
+        /// <returns></returns>
         internal bool ParkVehicleToSpot(Vehicle vehicle, int spot)
         {
             foreach (var line in ParkingHouse.PHouse)
@@ -48,6 +54,11 @@ namespace PragueParking2._0
             return false;
         }
 
+        /// <summary>
+        /// Method to check for size left on the parkingspot.
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <returns></returns>
         public bool CheckSpace(Vehicle vehicle)
         {
             if (AvailableSize == ConfigValues.ParkingSpotSize & vehicle.Size == ConfigValues.CarSize)
@@ -62,6 +73,11 @@ namespace PragueParking2._0
             return false;
         }
 
+        /// <summary>
+        /// Method to find a specific vehicle using platenumber.
+        /// </summary>
+        /// <param name="plateNumber"></param>
+        /// <returns></returns>
         public bool FindVehicle(string plateNumber)
         {
             bool check = false;
@@ -75,6 +91,11 @@ namespace PragueParking2._0
             return check;
         }
 
+        /// <summary>
+        /// Method to remove obj vehicle from the list.
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <returns></returns>
         public bool RemoveVehicle(Vehicle vehicle)
         {
             bool check = false;
@@ -84,11 +105,21 @@ namespace PragueParking2._0
             return check;
         }
 
+        /// <summary>
+        /// Method to return a object using platenumber
+        /// </summary>
+        /// <param name="plateNumber"></param>
+        /// <returns></returns>
         public Vehicle ReturnObjectVehicle(string plateNumber)
         {
             return ParkedVehicles.FirstOrDefault(o => o.PlateNumber == plateNumber);  // kollar om det finns något objekt med detta regnr. Retunerar hela objektet eller null
         }
 
+        /// <summary>
+        /// Method to find on what spot vehicle is parked on
+        /// </summary>
+        /// <param name="plateNumber"></param>
+        /// <returns></returns>
         public int FindSpot(string plateNumber)
         {
             var vehicle = ReturnObjectVehicle(plateNumber);
@@ -100,6 +131,11 @@ namespace PragueParking2._0
             return -1;       // 0 är standard värde på spot. Alltså att den inte finns.
         }
 
+        /// <summary>
+        /// Method to move a vehicle.
+        /// </summary>
+        /// <param name="plateNumber"></param>
+        /// <returns></returns>
         public bool MoveVehicle(string plateNumber)
         {
             bool check = false;

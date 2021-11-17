@@ -1,5 +1,4 @@
-﻿using PragueParking2._0.DataConfig;
-using System;
+﻿using System;
 
 public class Vehicle
 {
@@ -18,10 +17,5 @@ public class Vehicle
     public int Price { get; set; }
     public int Spot { get; set; }
     public DateTime TimeParked { get; set; }    
-
-    public virtual void PrintVehicleParked()
-    {
-        Console.WriteLine("Vehicle has now been parked.");
-    }
 }
 

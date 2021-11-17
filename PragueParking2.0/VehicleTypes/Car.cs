@@ -4,7 +4,7 @@ using PragueParking2._0.DataConfig;
 class Car : Vehicle
 {
     /// <summary>
-    /// Tar emot regnr och sätter sedan reg, storlek, pris och tid för ankomst.
+    /// Constructor for Car, used when reading and parking from JSON file.
     /// </summary>
     /// <param name="plateNumber"></param>
 
@@ -17,15 +17,14 @@ class Car : Vehicle
         Spot = spot;
     }
 
+    /// <summary>
+    /// constructor for Car, used when adding new car to list.
+    /// </summary>
+    /// <param name="plateNumber"></param>
     public Car(string plateNumber) : base(plateNumber)
     {
         this.Price = ConfigValues.CarPricePerHour;
         this.Size = ConfigValues.CarSize;
-    }
-
-    public override void PrintVehicleParked()
-    {
-        Console.WriteLine("Car has now been parked at <input spot here>");
     }
 }
 

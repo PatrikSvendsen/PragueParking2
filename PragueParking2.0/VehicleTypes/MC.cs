@@ -1,15 +1,14 @@
 ﻿using System;
-
 using PragueParking2._0.DataConfig;
 
-class MC : Vehicle
+class Mc : Vehicle
 {
     /// <summary>
-    /// Tar emot regnr och sätter sedan reg, storlek, pris och tid för ankomst.
+    /// Constructor for MC, used when reading and parking from JSON file.
     /// </summary>
     /// <param name="plateNumber"></param>
 
-    public MC(string plateNumber, int price, int spot, DateTime timeParked) : base(plateNumber)
+    public Mc(string plateNumber, int price, int spot, DateTime timeParked) : base(plateNumber)
     {
         PlateNumber = plateNumber;
         Price = price;
@@ -18,14 +17,14 @@ class MC : Vehicle
         Spot = spot;
     }
 
-    public MC(string plateNumber) : base(plateNumber)
+    /// <summary>
+    /// constructor for Mc, used when adding new car to list.
+    /// </summary>
+    /// <param name="plateNumber"></param>
+    public Mc(string plateNumber) : base(plateNumber)
     {
         this.Price = ConfigValues.MCPricePerHour;
         this.Size = ConfigValues.MCSize;
-    }
-    public void CarParked()
-    {
-        Console.WriteLine("Motorcycle has now been parked at <input spot here>");
     }
 }
 

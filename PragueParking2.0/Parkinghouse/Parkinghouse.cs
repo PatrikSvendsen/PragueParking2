@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PragueParking2._0.DataConfig;
 using Spectre.Console;
@@ -44,11 +39,6 @@ namespace PragueParking2._0
             }
         }
 
-        public override string ToString()
-        {
-            return PHouse.ToString();
-        }
-
         /// <summary>
         /// Method to check type of vehicle that needs to be created.
         /// </summary>
@@ -62,9 +52,9 @@ namespace PragueParking2._0
             {
                 check = ParkVehicle(new Car(vehiclePlate));
             }
-            else if (type == "MC")
+            else if (type == "Mc")
             {
-                check = ParkVehicle(new MC(vehiclePlate));
+                check = ParkVehicle(new Mc(vehiclePlate));
             }
             return check;
         }
@@ -252,7 +242,7 @@ namespace PragueParking2._0
                 }
                 else if (vehicle.Size == 2)
                 {
-                    ReParkVehicle(new MC(vehicle.PlateNumber, vehicle.Price, vehicle.Spot, vehicle.TimeParked), vehicle.Spot);
+                    ReParkVehicle(new Mc(vehicle.PlateNumber, vehicle.Price, vehicle.Spot, vehicle.TimeParked), vehicle.Spot);
                 }
             }
             vehicles.Clear();
@@ -348,7 +338,21 @@ namespace PragueParking2._0
             //rule1.Style = Style.Parse("red dim");
             //rule2.Style = Style.Parse("blue");
             Console.Clear();
+            var Rule1 = new Rule();
+            Rule1.Style = Style.Parse("White");
 
+            var Rule3 = new Rule("[blue]Prague[/]").LeftAligned();
+            Rule3.Style = Style.Parse("White");
+            var Rule4 = new Rule("[blue]Parking[/]").LeftAligned();
+            Rule4.Style = Style.Parse("Red");
+            var Rule5 = new Rule("[blue]2.0[/]").LeftAligned();
+            Rule4.Style = Style.Parse("Red");
+            var Rule6 = new Rule();
+            Rule5.Style = Style.Parse("Red");
+            AnsiConsole.Write(Rule1);
+            AnsiConsole.Write(Rule3);
+            AnsiConsole.Write(Rule4);
+            AnsiConsole.Write(Rule5);
             //För rad 1-10
             //-------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------
@@ -363,11 +367,11 @@ namespace PragueParking2._0
             {
                 if (PHouse[i].ParkedVehicles.Count != 0)
                 {
-                    if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
+                    if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Mc")
                     {
                         if (PHouse[i].ParkedVehicles.Count == 2)
                         {
-                            table5.Columns[i].Footer("[deeppink3]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
+                            table5.Columns[i].Footer("[red3_1]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
                         }
                         else
                         {
@@ -415,11 +419,11 @@ namespace PragueParking2._0
                 {
                     if (PHouse[i].ParkedVehicles.Count != 0)
                     {
-                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
+                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Mc")
                         {
                             if (PHouse[i].ParkedVehicles.Count == 2)
                             {
-                                table7.Columns[y].Footer("[deeppink3]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
+                                table7.Columns[y].Footer("[red3_1]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
                             }
                             else
                             {
@@ -467,11 +471,11 @@ namespace PragueParking2._0
                 {
                     if (PHouse[i].ParkedVehicles.Count != 0)
                     {
-                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
+                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Mc")
                         {
                             if (PHouse[i].ParkedVehicles.Count == 2)
                             {
-                                table7.Columns[y].Footer("[deeppink3]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
+                                table7.Columns[y].Footer("[red3_1]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
                             }
                             else
                             {
@@ -518,11 +522,11 @@ namespace PragueParking2._0
                 {
                     if (PHouse[i].ParkedVehicles.Count != 0)
                     {
-                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
+                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Mc")
                         {
                             if (PHouse[i].ParkedVehicles.Count == 2)
                             {
-                                table11.Columns[y].Footer("[deeppink3]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
+                                table11.Columns[y].Footer("[red3_1]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
                             }
                             else
                             {
@@ -535,6 +539,7 @@ namespace PragueParking2._0
                         }
                     }
                     table11.Columns[y].Width(28);
+                    i++;
                 }
             table11.InsertRow(0,
             "Spot  " + PHouse[30].Spot,
@@ -571,11 +576,11 @@ namespace PragueParking2._0
                 {
                     if (PHouse[i].ParkedVehicles.Count != 0)
                     {
-                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
+                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Mc")
                         {
                             if (PHouse[i].ParkedVehicles.Count == 2)
                             {
-                                table13.Columns[y].Footer("[deeppink3]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
+                                table13.Columns[y].Footer("[red3_1]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
                             }
                             else
                             {
@@ -625,11 +630,11 @@ namespace PragueParking2._0
                 {
                     if (PHouse[i].ParkedVehicles.Count != 0)
                     {
-                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
+                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Mc")
                         {
                             if (PHouse[i].ParkedVehicles.Count == 2)
                             {
-                                table15.Columns[y].Footer("[deeppink3]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
+                                table15.Columns[y].Footer("[red3_1]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
                             }
                             else
                             {
@@ -678,11 +683,11 @@ namespace PragueParking2._0
                 {
                     if (PHouse[i].ParkedVehicles.Count != 0)
                     {
-                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
+                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Mc")
                         {
                             if (PHouse[i].ParkedVehicles.Count == 2)
                             {
-                                table17.Columns[y].Footer("[deeppink3]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
+                                table17.Columns[y].Footer("[red3_1]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
                             }
                             else
                             {
@@ -731,11 +736,11 @@ namespace PragueParking2._0
                 {
                     if (PHouse[i].ParkedVehicles.Count != 0)
                     {
-                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
+                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Mc")
                         {
                             if (PHouse[i].ParkedVehicles.Count == 2)
                             {
-                                table19.Columns[y].Footer("[deeppink3]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
+                                table19.Columns[y].Footer("[red3_1]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
                             }
                             else
                             {
@@ -785,11 +790,11 @@ namespace PragueParking2._0
                 {
                     if (PHouse[i].ParkedVehicles.Count != 0)
                     {
-                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
+                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Mc")
                         {
                             if (PHouse[i].ParkedVehicles.Count == 2)
                             {
-                                table22.Columns[y].Footer("[deeppink3]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
+                                table22.Columns[y].Footer("[red3_1]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
                             }
                             else
                             {
@@ -837,11 +842,11 @@ namespace PragueParking2._0
                 {
                     if (PHouse[i].ParkedVehicles.Count != 0)
                     {
-                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "MC")
+                        if (PHouse[i].ParkedVehicles[0].GetType().ToString() == "Mc")
                         {
                             if (PHouse[i].ParkedVehicles.Count == 2)
                             {
-                                table23.Columns[y].Footer("[deeppink3]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
+                                table23.Columns[y].Footer("[red3_1]" + PHouse[i].ParkedVehicles[0].PlateNumber + "     " + PHouse[i].ParkedVehicles[1].PlateNumber + "[/]");
                             }
                             else
                             {
@@ -876,24 +881,28 @@ namespace PragueParking2._0
             //-------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------
 
+            Table table29 = new Table()
+                ;
             Table table30 = new Table()
-                .AddColumn("Currently parked vehicles")
-                .Width(100)
+                .AddColumn("Important")
+                .AddRow("[orangered1] Orange = Parked car[/]")
+                .AddRow("[green3_1] Green = Single Mc[/]")
+                .AddRow("[red3_1] Red = Double Mc[/]")
+                .AddRow("[white] White = Empty spot[/]")
                 .Centered();
+            table30.Border = TableBorder.Minimal;
 
 
             AnsiConsole.Write(table30);
 
-
-
-
-
             Console.ReadKey();
         }
+
+
     }
-
-
 }
+
+
 
 //public void ShowParkingViewLarge()
 //{

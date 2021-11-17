@@ -21,18 +21,18 @@
     "TimeParked": "2021-11-17T14:51:07.3379798+01:00"
   },
   {
-    "PlateNumber": "SLAKD151",
-    "Size": 2,
-    "Price": 10,
-    "Spot": 79,
-    "TimeParked": "2021-11-17T14:51:11.8633951+01:00"
-  },
-  {
-    "PlateNumber": "KLA1234",
+    "PlateNumber": "MGASD1512",
     "Size": 4,
     "Price": 20,
-    "Spot": 73,
-    "TimeParked": "2021-11-17T14:51:17.5189312+01:00"
+    "Spot": 3,
+    "TimeParked": "2021-11-17T17:15:06.1681588+01:00"
+  },
+  {
+    "PlateNumber": "AFSA14",
+    "Size": 2,
+    "Price": 10,
+    "Spot": 4,
+    "TimeParked": "2021-11-17T19:42:16.2494886+01:00"
   },
   {
     "PlateNumber": "ABCDE12345",
@@ -49,6 +49,20 @@
     "TimeParked": "2021-11-12T20:41:02.4461866+01:00"
   },
   {
+    "PlateNumber": "MFA123",
+    "Size": 4,
+    "Price": 20,
+    "Spot": 7,
+    "TimeParked": "2021-11-17T19:41:42.205216+01:00"
+  },
+  {
+    "PlateNumber": "MDAS15",
+    "Size": 4,
+    "Price": 20,
+    "Spot": 8,
+    "TimeParked": "2021-11-17T20:01:15.0430528+01:00"
+  },
+  {
     "PlateNumber": "D12315G",
     "Size": 2,
     "Price": 10,
@@ -59,7 +73,7 @@
     "PlateNumber": "AAA111",
     "Size": 2,
     "Price": 10,
-    "Spot": 26,
+    "Spot": 11,
     "TimeParked": "2021-11-12T23:30:16.486994+01:00"
   },
   {
@@ -82,13 +96,6 @@
     "Price": 20,
     "Spot": 36,
     "TimeParked": "2021-11-14T00:09:00.8834695+01:00"
-  },
-  {
-    "PlateNumber": "DSA4123G",
-    "Size": 2,
-    "Price": 10,
-    "Spot": 45,
-    "TimeParked": "2021-11-14T12:49:00.8834695+01:00"
   },
   {
     "PlateNumber": "512505",
@@ -119,11 +126,25 @@
     "TimeParked": "2021-11-16T22:42:12.1197023+01:00"
   },
   {
+    "PlateNumber": "KLA1234",
+    "Size": 4,
+    "Price": 20,
+    "Spot": 73,
+    "TimeParked": "2021-11-17T14:51:17.5189312+01:00"
+  },
+  {
     "PlateNumber": "028143",
     "Size": 4,
     "Price": 20,
     "Spot": 76,
     "TimeParked": "2021-11-12T20:42:26.2669679+01:00"
+  },
+  {
+    "PlateNumber": "SLAKD151",
+    "Size": 2,
+    "Price": 10,
+    "Spot": 79,
+    "TimeParked": "2021-11-17T14:51:11.8633951+01:00"
   },
   {
     "PlateNumber": "AFSS05",
