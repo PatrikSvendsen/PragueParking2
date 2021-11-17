@@ -59,7 +59,6 @@ namespace PragueParking2._0
             Program program = new Program();
             ParkingHouse.SetValuesFromConfig();
             ParkingHouse parkingHouse = new ParkingHouse();
-            //TableClass tableClass = new TableClass();
 
             var menuChoice = String.Empty;
             var subMenuChoice = String.Empty;
@@ -91,8 +90,7 @@ namespace PragueParking2._0
                         AnsiConsole.Write(table1);
                         subMenuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>()
                             .AddChoices(new[] { "Car", "MC", "Go back" }));
-                        Console.Clear();
-                        AnsiConsole.Write(table1);
+                        Console.Clear();                       AnsiConsole.Write(table1);
 
                         switch (subMenuChoice)
                         {
