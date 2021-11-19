@@ -3,4 +3,6 @@ Updated version of Prague Parking - Homework
 
 PLEASE NOTE
 *****************************************************************
-This version of Prague Parking contains a Spectre Console package. 
+This version of Prague Parking contains these package:
+¤ Spectre.Console
+¤ Newtonsoft.Json
