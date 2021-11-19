@@ -1,15 +1,19 @@
 {
-//This is the config file for Prague Parking 2.0
-//below is the values to change 
-//OBS!!!
-//--PLEASE CHANGE THE NUMBERS ONLY!
-//-------------------------------------
-//
+  //This is the config file for Prague Parking 2.0
+  //below is the values to change 
+  //OBS!!!
+  //--PLEASE CHANGE THE NUMBERS ONLY!
+  //-------------------------------------
+  //
+
   "CarSize": 4,
   "MCSize": 2,
   "CarPricePerHour": 20,
   "MCPricePerHour": 10,
-  "ParkingHouseSize": 100,
   "ParkingSpotSize": 4,
-  "FreeParkingTime": 10
+  "FreeParkingTime": 10,
+
+  //DO NOT CHANGE BELOW VALUE
+  "ParkingHouseSize": 100
+
 }

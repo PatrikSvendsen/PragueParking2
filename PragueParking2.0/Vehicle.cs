@@ -1,11 +1,18 @@
 ﻿using System;
 
-public class Vehicle
+class Vehicle
 {
+    /// <summary>
+    /// Constructor for vehicle. 
+    /// </summary>
     public Vehicle()
     {
 
     }
+    /// <summary>
+    /// Constructor for vehicle
+    /// </summary>
+    /// <param name="plateNumber"></param>
     public Vehicle(string plateNumber)
     {
         this.PlateNumber = plateNumber;

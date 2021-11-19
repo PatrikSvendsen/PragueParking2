@@ -2,6 +2,8 @@
 
 namespace PragueParking2._0.DataConfig
 {
+    //Tack till Rasmus för hjälpen med JSON
+
     class ConfigValues
     {
         [JsonProperty("CarSize")]

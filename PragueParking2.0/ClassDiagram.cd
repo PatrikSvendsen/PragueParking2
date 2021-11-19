@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Car">
+    <Position X="1" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VehicleTypes\Car.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vehicle">
+    <Position X="2.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAgAAAAAgAAAAAAQAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Vehicle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PragueParking2._0.Program">
+    <Position X="5.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AUAAggAAAAACAAAAAAAAAAAAAAAIAAABACAEBAEAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mc">
+    <Position X="3.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VehicleTypes\Mc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PragueParking2._0.ParkingSpot">
+    <Position X="9.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAECAAAAgAAIAAEAAAAAAAAAAEAAAAAAgiAACAAAAA=</HashCode>
+      <FileName>Parkinghouse\ParkingSpot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PragueParking2._0.ParkingHouse">
+    <Position X="8" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAABAQQQAAAAAAAASAAAEAAAgAIAAAAAAAAAFwQA=</HashCode>
+      <FileName>Parkinghouse\ParkingHouse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PragueParking2._0.DataConfig.ConfigValues">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAoAAAAAACAAAIAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>DataConfig\ConfigValues.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

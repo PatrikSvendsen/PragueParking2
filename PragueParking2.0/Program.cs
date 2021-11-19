@@ -4,7 +4,7 @@ using Spectre.Console;
 
 namespace PragueParking2._0
 {
-    public class Program
+    class Program
     {
         public static void Main(string[] args)
         {
@@ -31,14 +31,18 @@ namespace PragueParking2._0
                     .Width(80);
                 table2.Border = TableBorder.Horizontal;
                 AnsiConsole.Write(table1);
-
+                PrintFlag();
+                Console.WriteLine("\t");
                 menuChoice = RegisterMenuChoice();
                 if (menuChoice == "Register new vehicle")
                 {
                     Console.Clear();
                     AnsiConsole.Write(table1);
-                    program.RegisterSubMenuChoice(out subMenuChoice, menuChoice);
-
+                    program.RegisterSubMenuChoice(menuChoice, out subMenuChoice);
+                    if (subMenuChoice == "Go back")
+                    {
+                        continue;
+                    }
                     Console.Clear();
                     AnsiConsole.Write(table1);
                     string plateNumber = String.Empty;
@@ -58,20 +62,23 @@ namespace PragueParking2._0
                         check = parkingHouse.AddVehicleToList(plateNumber, subMenuChoice);
                         if (check == true)
                         {
-                            Console.WriteLine("Vehicle has now been parked");
-                            Console.ReadKey();
-                        }
+                            ParkingHouse.CheckIfExists(plateNumber, out vehicle);
+                            var table41 = new Table();
+                            table41.AddColumn("Vehicle has now been parked at parkingspot: " + vehicle.Spot);
+                            AnsiConsole.Write(table41);
+                            vehicle = null;                    }
                         else
                         {
-                            Console.WriteLine("No empty spots left, please come back at another time.");
-                            Console.ReadKey();
+                            var table = new Table();
+                            table.AddColumn("[orangered1]There are no empty spots left.[/]");
+                            AnsiConsole.Write(table);
                         }
                     }
                     else if (check == true && vehicle != null)
                     {
                         Console.WriteLine("Vehicle already exist");
-                        Console.ReadKey();
                     }
+                Console.ReadKey();
                 }
 
                 if (menuChoice == "Handle parked vehicle")
@@ -83,18 +90,19 @@ namespace PragueParking2._0
                     AnsiConsole.Write(table1);
                     Console.WriteLine("Please enter a plate number: ");
                     program.AskForVehiclePlate(out plateNumber);
-                    plateNumber = program.IsPlateOk(plateNumber, out vehicle, out check);      // tar emot regnr och kontrollerar så det är korrekt.
+                    plateNumber = program.IsPlateOk(plateNumber, out vehicle, out check);
                     if (plateNumber == null)
                     {
-                        continue;           // om plateNumber kommer tillbaka null betyder det att man valt att ange endast enter vid angivning av regnr. Prompt                    som kommer upp om man skriver fel och ska ange nytt regnr. Skriv in nytt eller tryck enter för retur till                               mainmenu.
+                        continue;
                     }
                     else if (check == false)
                     {
-                        Console.WriteLine("We cannot find a vehicle with that plate number here");
-                        Console.WriteLine("Press enter to return to mainmenu.");
-                        Console.ReadKey();
+                        var table41 = new Table();
+                        table41.AddColumn("[yellow]We cannot find a vehicle with that platenumber here![/]");
+                        table41.AddRow("[yellow]Press enter to return to mainmenu.[/]");
+                        AnsiConsole.Write(table41);
                     }
-                    else if (check == true)                    // om check kommer tillbaka true betyder det att fordonet finns och ett index har returnerats.
+                    else if (check == true)
                     {
                         Console.Clear();
                         TimeSpan timeParked;
@@ -102,25 +110,30 @@ namespace PragueParking2._0
                         int priceToPay = parkingHouse.CalculatePriceOnCheckOut(timeParked, vehicle.Price);
                         AnsiConsole.Write(table1);
                         program.PrintVehicle(vehicle, priceToPay);
-                        program.RegisterSubMenuChoice(out subMenuChoice, menuChoice);
+                        program.RegisterSubMenuChoice(menuChoice, out subMenuChoice);
 
                         if (subMenuChoice == "Collect vehicle")
                         {
                             check = parkingHouse.RemoveVehicle(vehicle);
                             if (check == true)
                             {
-                                Console.WriteLine("Vehicle removed. Price to pay: {0} CZK", priceToPay);
+                                var table42 = new Table();
+                                table42.AddColumn("[green]Vehicle removed. Price to pay: " + priceToPay + "CZK[/]");
+                                AnsiConsole.Write(table42);
                             }
                             else
                             {
-                                Console.WriteLine("Vehicle not removed");
+                                var table43 = new Table();
+                                table43.AddColumn("[red]Vehicle not removed, please try again[/]");
+                                AnsiConsole.Write(table43);
                             }
-                            Console.ReadKey();
                         }
 
                         else if (subMenuChoice == "Move vehicle")
                         {
                             string spot;
+                            parkingHouse.ShowParkingViewSmall();
+                            Console.WriteLine("\t");
                             program.AskForNewSpot(out spot);
                             int spotInt = program.IsSpotOk(spot, out check);
                             if (spotInt == -1)
@@ -132,43 +145,44 @@ namespace PragueParking2._0
                                 check = parkingHouse.RemoveVehicle(vehicle);
                                 if (check == true)
                                 {
+                                    var table = new Table();
                                     parkingHouse.ReParkVehicle(vehicle, spotInt);
-                                    Console.WriteLine("Vehicle can now be moved.");
+                                    table.AddColumn("Vehicle can now be moved.");
+                                    AnsiConsole.Write(table);
                                 }
                             }
                             else
                             {
                                 var table40 = new Table()
-                                    .AddColumn("[red]This spot is taken[/]");
+                                .AddColumn("[red]This spot is taken[/]");
                                 AnsiConsole.Write(table40);
                             }
-                            Console.ReadKey();
                         }
                     }
+                    Console.ReadKey();
                 }
 
                 if (menuChoice == "Show parkingview")
                 {
                     Console.Clear();
                     AnsiConsole.Write(table1);
-                    program.RegisterSubMenuChoice(out subMenuChoice, menuChoice);
+                    program.RegisterSubMenuChoice(menuChoice, out subMenuChoice);
 
                     if (subMenuChoice == "Small parkingview")
                     {
-                        Console.Clear();
                         parkingHouse.ShowParkingViewSmall();
-                        Console.ReadKey();
-                        continue;
                     }
                     else if (subMenuChoice == "Large parkingview")
                     {
-                        Console.Clear();
-                        AnsiConsole.Write(table1);
                         parkingHouse.ShowParkingViewLarge();
-                        Console.ReadKey();
+                    }
+                    else
+                    {
                         continue;
                     }
+                    Console.ReadKey();
                 }
+
                 if (menuChoice == "Configure values")
                 {
                     Console.WriteLine("Please change the value inside config file then press enter to continue.");
@@ -176,6 +190,12 @@ namespace PragueParking2._0
                     ParkingHouse.SetValuesFromConfig();
                     Console.WriteLine("Press enter to return to main menu.");
                 }
+
+                if (menuChoice == "Reload Mainmenu")
+                {
+                    continue;
+                }
+
                 if (menuChoice == "Exit Program")
                 {
                     mainmenu = false;
@@ -186,7 +206,13 @@ namespace PragueParking2._0
             }
         }
 
-        private string RegisterSubMenuChoice(out string subMenuChoice, string menuChoice)
+        /// <summary>
+        /// MEthod to ask for submenu choice
+        /// </summary>
+        /// <param name="menuChoice"></param>
+        /// <param name="subMenuChoice"></param>
+        /// <returns></returns>
+        private string RegisterSubMenuChoice(string menuChoice, out string subMenuChoice)
         {
             subMenuChoice = null;
             if (menuChoice == "Register new vehicle")
@@ -197,13 +223,10 @@ namespace PragueParking2._0
                     case "Car": break;
                     case "Mc": break;
 
-                    default:
-                        if (subMenuChoice == "Go back")
-                        {
-                            subMenuChoice = null;
-                        }; break;
+                    default: subMenuChoice = "Go back"; break;
                 }
             }
+
             if (menuChoice == "Handle parked vehicle")
             {
                 switch (subMenuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>()
@@ -218,6 +241,7 @@ namespace PragueParking2._0
                         }; break;
                 }
             }
+
             if (menuChoice == "Show parkingview")
             {
                 switch (subMenuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>()
@@ -233,16 +257,20 @@ namespace PragueParking2._0
                         };
                         break;
                 }
-            }            
+            }
             return subMenuChoice;
         }
 
+        /// <summary>
+        /// Method to ask for Main menu choice.
+        /// </summary>
+        /// <returns></returns>
         private static string RegisterMenuChoice()
         {
             string menuChoice;
             var table3 = new Table();
             table3.AddColumns(menuChoice = AnsiConsole.Prompt(new SelectionPrompt<string>().AddChoices(new[] {"Register new vehicle", "Handle parked vehicle",
-                "Show parkingview","Configure values", "Exit Program" })));
+                "Show parkingview","Configure values","Reload Mainmenu", "Exit Program" })));
 
             switch (menuChoice)
             {
@@ -250,6 +278,7 @@ namespace PragueParking2._0
                 case "Handle parked vehicle": break;
                 case "Show parkingview": break;
                 case "Configure values": break;
+                case "Reload Mainmenu": break;
                 case "Exit Program": break;
                 default:
                     Console.WriteLine("Please choose a correct option.");
@@ -398,6 +427,27 @@ namespace PragueParking2._0
             }
             vehicle = null;
             return null;
+        }
+
+        /// <summary>
+        /// Method to print the flag.
+        /// </summary>
+        public static void PrintFlag()
+        {
+            var Rule1 = new Rule();
+            Rule1.Style = Style.Parse("White");
+
+            var Rule3 = new Rule("[blue]Prague[/]").LeftAligned();
+            Rule3.Style = Style.Parse("White");
+            var Rule4 = new Rule("[blue]Parking[/]").LeftAligned();
+            Rule4.Style = Style.Parse("Red");
+            var Rule5 = new Rule("[blue]2.0[/]").LeftAligned();
+            Rule4.Style = Style.Parse("Red");
+            var Rule6 = new Rule();
+            Rule5.Style = Style.Parse("Red");
+            AnsiConsole.Write(Rule3);
+            AnsiConsole.Write(Rule4);
+            AnsiConsole.Write(Rule5);
         }
     }
 }

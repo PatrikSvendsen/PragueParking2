@@ -6,12 +6,11 @@ using PragueParking2._0.DataConfig;
 
 namespace PragueParking2._0
 {
-    public class ParkingSpot
+    class ParkingSpot
     {
         public List<Vehicle> ParkedVehicles { get; set; } = new List<Vehicle>();
 
         internal int Spot { get; set; }
-        private int Size { get; set; }
         private int AvailableSize { get; set; }
 
         public ParkingSpot(int spotSize, int spot)

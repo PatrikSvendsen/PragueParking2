@@ -7,7 +7,6 @@ class Car : Vehicle
     /// Constructor for Car, used when reading and parking from JSON file.
     /// </summary>
     /// <param name="plateNumber"></param>
-
     public Car(string plateNumber, int price, int spot, DateTime timeParked) : base(plateNumber)
     {
         PlateNumber = plateNumber;

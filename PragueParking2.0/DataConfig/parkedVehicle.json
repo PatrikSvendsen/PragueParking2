@@ -49,6 +49,13 @@
     "TimeParked": "2021-11-12T20:41:02.4461866+01:00"
   },
   {
+    "PlateNumber": "FASD123",
+    "Size": 2,
+    "Price": 10,
+    "Spot": 6,
+    "TimeParked": "2021-11-18T09:16:06.9131237+01:00"
+  },
+  {
     "PlateNumber": "MFA123",
     "Size": 4,
     "Price": 20,
@@ -61,6 +68,20 @@
     "Price": 20,
     "Spot": 8,
     "TimeParked": "2021-11-17T20:01:15.0430528+01:00"
+  },
+  {
+    "PlateNumber": "MAF142",
+    "Size": 4,
+    "Price": 20,
+    "Spot": 9,
+    "TimeParked": "2021-11-18T09:10:53.9355542+01:00"
+  },
+  {
+    "PlateNumber": "KAJ15Y",
+    "Size": 4,
+    "Price": 20,
+    "Spot": 10,
+    "TimeParked": "2021-11-18T09:19:52.7683453+01:00"
   },
   {
     "PlateNumber": "D12315G",
@@ -105,6 +126,13 @@
     "TimeParked": "2021-11-16T22:42:12.1197023+01:00"
   },
   {
+    "PlateNumber": "MAF450",
+    "Size": 4,
+    "Price": 20,
+    "Spot": 50,
+    "TimeParked": "2021-11-19T09:20:52.0663482+01:00"
+  },
+  {
     "PlateNumber": "M32505",
     "Size": 4,
     "Price": 20,
@@ -124,6 +152,13 @@
     "Price": 10,
     "Spot": 65,
     "TimeParked": "2021-11-16T22:42:12.1197023+01:00"
+  },
+  {
+    "PlateNumber": "FAS123",
+    "Size": 2,
+    "Price": 10,
+    "Spot": 72,
+    "TimeParked": "2021-11-18T09:13:45.791688+01:00"
   },
   {
     "PlateNumber": "KLA1234",
