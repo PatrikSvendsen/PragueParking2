@@ -1,5 +1,5 @@
 # PragueParking2
-Updated version of Prague Parking - Homework
+Updated version of Prague Parking - school project
 
 PLEASE NOTE
 *****************************************************************
